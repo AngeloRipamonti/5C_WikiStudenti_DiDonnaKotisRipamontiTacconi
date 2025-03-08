@@ -57,17 +57,16 @@
             <li class="nav-item"><a class="nav-link" href="#UML">UML</a>
                 <ul class="nav flex-column">
                 <li class="nav-item"><a class="nav-link" href="#umlcasiduso">Casi d'uso</a></li>
-                <li class="nav-item"><a class="nav-link" href="#umloggetti">Oggetti</a></li>
-                <li class="nav-item"><a class="nav-link" href="#umlstato">Stato</a></li>
-                <li class="nav-item"><a class="nav-link" href="#umlsequenza">Sequenza</a></li>
-            
+                <li class="nav-item"><a class="nav-link" href="#umler">Entity Relationship</a></li>            
             </ul>
             </li>
-            <li class="nav-item"><a class="nav-link" href="#contenuti">Contenuti</a>
-            
+            <li class="nav-item"><a class="nav-link" href="#requisiti">Requisiti</a>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="#requisitifunzionali">Requisiti Funzionali</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#requisitireteesicurezza">Requisiti di Rete e Sicurezza</a></li>
+                </ul>
             </li>
-            <li class="nav-item"><a class="nav-link" href="#wireframes">Wireframes</a></li>
-                
+            <li class="nav-item"><a class="nav-link" href="#wireframes">Wireframes</a></li>    
             </li>
             <li class="nav-item"><a class="nav-link" href="#progetto">Il progetto</a>
             <ul class="nav flex-column">
@@ -83,20 +82,25 @@
     
             <section id="start">
             <h1>Documentazione</h1>
-            <h2>Nome del progetto</h2>
-            <p class="lead">Qui va una breve descrizione.</p>
+            <h2>Progetto Wiki</h2>
+            <p class="lead">
+                Si vuole realizzare una <b>web application</b> per la consultazione di una wiki, 
+                accessibile sia ad <u>utenti senza account</u> sia con <u>permessi speciali</u>.
+                L'obbiettivo del progetto è fornire una piattaforma collaborativa in cui le voci delle wiki possano
+                essere <b>create</b>, <b>modificate</b> e <b>approvate</b> in maniera <b>controllata</b>.
+            </p>
             <hr>
             <div class="row">
                 <div class="col-sm-6 col-lg-4">
                     <ul class="list-unstyled">
-                        <li><strong>Classe/Anno:</strong> 5XXX - 24/25</li>
-                        <li><strong>Author:</strong> Studente1, studente2, studente3</li>
+                        <li><strong>Classe/Anno:</strong> 5°C Informatica - 24/25</li>
+                        <li><strong>Author:</strong> Angelo Ripamonti, Alexandros Kotis, Lorenzo Di Donna e Simone Tacconi</li>
                     </ul>
                 </div>
                 <div class="col-sm-6 col-lg-4">
                     <ul class="list-unstyled">
-                        <li><strong class="font-weight-700">Creato:</strong> 16 dicembre 2024</li>
-                        <li><strong>Ultima modifica:</strong> 20 gennaio 2025</li>
+                        <li><strong class="font-weight-700">Creato:</strong> 26 Febbraio 2025</li>
+                        <li><strong>Ultima modifica:</strong> 08 Marzo 2025</li>
                     </ul>
                 </div>
             </div>
@@ -106,8 +110,10 @@
 
             <section id="architettura_informazione">
             <h2>Architettura informazione</h2>
-            <p class="lead">Qui va inserito un diagramma che rappresenta la struttura delle informazioni del progetto.</p>
-            
+            <p class="lead">Di seguito il diagramma che rappresenta la struttura delle informazioni del progetto.</p>
+            <picture>
+                <img src="/assets/schemas/SchemaArchittetura.png" alt="Schema dell'Architettura" />
+            </picture>
             </section>
             
             <hr class="divider">
@@ -115,43 +121,147 @@
 
             <section id="UML">
                 <h2>UML</h2>
-                <p class="lead">Qui vanno inseriti i vari diagrammi UML</p>
-
-                </section>
+                <p class="lead">Di seguito i vari Diagrammi UML</p>
+            </section>
 
             <section id="umlcasiduso">
-            <h2>Diagramma di Casi d'uso</h2>
-            <p class="lead">Diagramma di casi d'uso non previsto.</p>
+                <h2>Diagramma di Casi d'uso</h2>
+                <p class="lead">Di seguito il diagramma di casi d'uso.</p>
+                <picture>
+                    <img src="/assets/schemas/Casi d'uso.drawio.png" alt="Schema Casi d'uso" />
+                </picture>
             
-            
             </section>
 
-            <section id="umloggetti">
-            <h2>Diagrammi di oggetti</h2>
-            <p class="lead">Qui vanno inseriti il diagramma di oggetti (immagini)</p>          
-
-            </section>
-
-            <section id="umlstato">
-            <h2>Diagrammi di Stato</h2>
-            <p class="lead">Qui vanno inseriti i diagrammi di stato (immagini). </p>          
-
-            </section>
-
-            <section id="umlsequenza">
-            <h2>Diagrammi di Sequenza</h2>
-            <p class="lead">Qui vanno inserito il diagrammi di sequenza (immagini)</p>          
-
+            <section id="umler">
+                <h2>Schema ER</h2>
+                <p class="lead">Di seguito lo schema ER.</p>          
+                <picture>
+                    <img src="/assets/schemas/SchemaER.drawio.png" alt="Schema ER" />
+                    <figcaption>
+                        <strong>Ipotesi:</strong>
+                        <ul>
+                            <li>Un'immagine può essere usata in più contenuti.</li>
+                            <li>Un'utente può scrivere un contenuto, di cui viene creata la versione 0</li>
+                            <li>Un'utente può modificare un contenuto, di cui viene creata una nuova versione per mantenere lo storico.</li>
+                        </ul>
+                    </figcaption>
+                </picture>
             </section>
 
             <hr class="divider">
+            <section id="requisiti">
+                <h2>Requisiti</h2>
+                <p class="lead">Di seguito i vari requisiti dell'applicazione</p>
+            </section>
 
-            <section id="contenuti">
-            <h2>Contenuti del progetto</h2>
-            <p class="lead">In questa sezione vanno inseriti i contenuti, organizzati in tabella e con un numero di immagini significative</p>
+            <section id="requisitifunzionali">
+            <h2>Requisiti Funzionali</h2>
+            <p class="lead">
+                La piattaforma sarà strutturata in tre principali interfacce utente:
+                <ol>
+                    <li><strong>Interfaccia per moderatori/amministratori:</strong>
+                        <ul>
+                            <li>Approva o respinge le modifiche effettuate dagli scrittori.</li>
+                            <li>Gestisce i contenuti e gli utenti con privilegi speciali.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Interfaccia per i creatori di contenuti (scrittori):</strong>
+                        <ul>
+                            <li>Propone nuove voci o modifica quelle esistenti.</li>
+                            <li>Le modifiche dovranno essere approvate da un moderatore prima della pubblicazione.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Interfaccia per gli utenti consultatori (front-end):</strong>
+                        <ul>
+                            <li>Consente la ricerca e la consultazione delle voci wiki.</li>
+                            <li>Non richiede la registrazione per l'accesso ai contenuti.</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <b>L’applicazione deve rispettare una serie di requisiti fondamentali.</b><br>
+
+                Deve essere in grado di tenere traccia delle modifiche effettuate, consentendo il ripristino dei contenuti a una versione specifica. 
+                Ogni bozza può essere modificata, ma finché una modifica non viene approvata, non è possibile apportarne di nuove alla stessa voce. 
+                L’editor deve avere un layout fisso, senza la possibilità di modificarlo. Inoltre, deve essere prevista una form di registrazione per candidarsi 
+                a ciascun ruolo, e l’amministratore avrà la possibilità di approvare o rifiutare le candidature tramite email. I campi richiesti per la registrazione 
+                includono email, password, classe, anno di nascita, nome e cognome. La password deve avere una lunghezza compresa tra un minimo di 8 e un massimo di 
+                24 caratteri e deve contenere almeno un numero, una lettera e un carattere speciale. Dopo aver effettuato l’accesso tramite l’apposita form, l’utente 
+                potrà selezionare il ruolo da utilizzare, qualora ne possieda più di uno, come specificato nei casi d’uso.
+            </p>
 
             </section>
 
+            <section id="requisitireteesicurezza">
+                <h2>Requisiti di Rete e Sicurezza</h2>
+                <p class="lead">
+                    L'obiettivo è garantire la <u>sicurezza della piattaforma</u> separando il web 
+                    server pubblico dall'infrastruttura interna che gestisce dati sensibili. <br>
+                    L'architettura è basata sull’ utilizzo di due <b>PC</b>:
+                    <ul>
+                        <li><strong>PC1 - Web Server Apache: </strong> 
+                            situato nella <b>DMZ</b>, che serve i client esterni e gestisce il traffico HTTPS attraverso un tunnel OpenTLS.
+                        </li>
+                        <li><strong>PC2 - Web Server + Database MySQL + RADIUS: </strong> 
+                            collocato nella <b>rete interna (LAN privata)</b>, è accessibile solo da PC1 e non è direttamente esposto a Internet.
+                        </li>
+                    </ul>
+
+                    Entrambi sono protetti dal <b>firewall di Ubuntu</b>, che controlla il traffico di rete e 
+                    garantisce che solo connessioni autorizzate possano passare.<br><br>
+                    
+                    
+                    
+                    <dl>
+                        <dt><strong>PC1 - Web Server Apache (DMZ):</strong></dt>
+                        <dd>
+                            <ul>
+                                <li>Accessibile solo tramite <b>HTTPS</b> su porta 443.</li>
+                                <li>Tunnel <b>OpenTLS</b> per garantire una connessione sicura.</li>
+                                <li>Firewall di Ubuntu configurato per <b>bloccare tutto il traffico non autorizzato</b>.</li>
+                                <li>Utilizzo di <b>Apache</b>.</li>
+                                <li>Può comunicare con <b>PC2</b> sulla LAN privata per interagire con il database o il servizio di autenticazione.</li>
+                            </ul>
+                        </dd>
+
+                        <dt><strong>PC2 - Web Server + Database MySQL + RADIUS (LAN privata):</strong></dt>
+                        <dd>
+                            <ul>
+                                <li><b>NON è esposto direttamente a Internet</b>.</li>
+                                <li><b>Web Server</b> per elaborazione lato server con <b>PHP</b>.</li>
+                                <li><b>Database MySQL</b> per la gestione dei dati.</li>
+                                <li><b>RADIUS</b> per autenticazione sicura degli utenti.</li>
+                                <li>Firewall di Ubuntu configurato per <b>accettare solo connessioni da PC1</b>.</li>
+                                <li>Blocco di tutte le connessioni non autorizzate dall'esterno.</li>
+                            </ul>
+                        </dd>
+
+                        <dt><strong>Firewall per PC1 (DMZ):</strong></dt>
+                        <dd>
+                            <ul>
+                                <li><b>Accettare</b> connessioni HTTPS sulla porta <b>443</b>.</li>
+                                <li><b>Permettere</b> connessioni verso PC2 solo sulle porte necessarie (es. <b>3306</b> per <b>MySQL</b>, <b>1812</b> per <b>RADIUS</b>).</li>
+                                <li><b>Bloccare</b> tutto il traffico in ingresso non autorizzato.</li>
+                            </ul>
+                        </dd>
+
+                        <dt><strong>Firewall per PC2 (LAN privata):</strong></dt>
+                        <dd>
+                            <ul>
+                                <li><b>Accettare</b> connessioni <b>solo da PC1</b> (nessun accesso diretto da Internet).</li>
+                                <li><b>Permettere</b> connessioni sulla porta <b>3306</b> (MySQL) e <b>1812</b> (RADIUS) esclusivamente da PC1.</li>
+                                <li><b>Bloccare</b> tutto il traffico proveniente da altre sorgenti.</li>
+                            </ul>
+                        </dd>
+                    </dl>
+
+                    
+                    
+                </p>
+    
+                </section>
+    
             <hr class="divider">
 
             <section id="wireframes">
@@ -166,7 +276,7 @@
 
                 <section id="link">
                 <h2>Link al progetto</h2>
-                <a href="">Link al progetto</a>
+                <a href="/src/index.php">Link al progetto</a>
 
             </section>
             
