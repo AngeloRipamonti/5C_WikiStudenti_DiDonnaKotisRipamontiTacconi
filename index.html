@@ -200,7 +200,7 @@
                     server pubblico dall'infrastruttura interna che gestisce dati sensibili. <br>
                     L'architettura è basata sull’ utilizzo di due <b>PC</b>:
                     <ul>
-                        <li><strong>PC1 - Web Server Apache: </strong> 
+                        <li><strong>PC1 - Web Server Apache + RADIUS: </strong> 
                             situato nella <b>DMZ</b>, che serve i client esterni e gestisce il traffico HTTPS attraverso un tunnel OpenTLS.
                         </li>
                         <li><strong>PC2 - Web Server + Database MySQL + RADIUS: </strong> 
@@ -214,13 +214,14 @@
                     
                     
                     <dl>
-                        <dt><strong>PC1 - Web Server Apache (DMZ):</strong></dt>
+                        <dt><strong>PC1 - Web Server Apache + RADIUS (DMZ):</strong></dt>
                         <dd>
                             <ul>
                                 <li>Accessibile solo tramite <b>HTTPS</b> su porta 443.</li>
                                 <li>Tunnel <b>OpenTLS</b> per garantire una connessione sicura.</li>
                                 <li>Firewall di Ubuntu configurato per <b>bloccare tutto il traffico non autorizzato</b>.</li>
                                 <li>Utilizzo di <b>Apache</b>.</li>
+                                <li><b>RADIUS</b> per autenticazione sicura degli utenti.</li>
                                 <li>Può comunicare con <b>PC2</b> sulla LAN privata per interagire con il database o il servizio di autenticazione.</li>
                             </ul>
                         </dd>
