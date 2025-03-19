@@ -153,6 +153,20 @@
                             <li>Un'utente può scrivere un contenuto, di cui viene creata la versione 0</li>
                             <li>Un'utente può modificare un contenuto, di cui viene creata una nuova versione per mantenere lo storico.</li>
                         </ul>
+                        <p>
+                            <strong>Spiegazione: </strong>L'entità utente consiste in tutti gli utenti loggati del sito, ed è collegata all'entità ruolo.
+                            Quindi ad esempio l'utente Mario può avere il ruolo Scrittore e di conseguenza Mario potrà scrivere degl'articoli. <br>
+                            L'entità contenuti invece è il contenuto visto in astratto e consiste unicamente nel titolo e in una breve descrizione. 
+                            Essa si collega all'entità versioni che è complementare, e consiste nel resto del contenuto. 
+                            Ad esempio se dobbiamo scrivere un'articolo sullo Schema E/R verrà messo il titolo <i>Schema E/R</i> ed una breve descrizione 
+                            quindi <i>Lo schema E/R (Entità/Relazioni) serve a modellare dati e relazioni in un database.</i> verrano inseriti nella tabella Contenuti. <br>
+                            Invece l'intera spiegazione dello schema E/R consiste nella versione x.y.z e quindi verrà salvata nella tabella versioni. <br>
+                            L'immagine, potendo esser generica, può essere usata in più versioni. <br>
+                            L'utente quando scrive il nuovo contenuto scrive in contemporanea la versione 0.0.0 e di conseguenza vengono creati i rispettivi record nelle 
+                            rispettive tabelle. Successivamente l'approvatore quando approva la versione 0.0.0 di conseguenza approva il contenuto. Invece per le versioni successive
+                            essendo il contenuto già approvato, lui approverà unicamente la versione.
+                            
+                        </p>
                     </figcaption>
                 </picture>
             </section>
@@ -275,7 +289,7 @@
 
             <section id="wireframes">
             <h2>Wireframes</h2>
-            <p class="lead">In questa sezione vanno inseriti i wireframes o la storyboard di progetto.</p>
+            <iframe width="768" height="432" src="https://miro.com/app/live-embed/uXjVIOGxnDw=/?moveToViewport=-615,-278,1228,556&embedId=975645904739" frameborder="0" scrolling="no" allow="fullscreen; clipboard-read; clipboard-write" allowfullscreen></iframe>
 
             <hr class="divider">
 
