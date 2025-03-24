@@ -174,10 +174,16 @@
 
             <section id="logicmodel">
                 <h2>Modello Logico</h2>
-                <p class="lead">Di seguito il Modello Logico</p>          
-                <picture>
-                    <img src="/assets/schemas/Logic_Model.png" alt="Modello Logico" />
-                </picture>
+                <p class="lead">Di seguito il Modello Logico.</p>          
+                
+                VERSIONE (Versione(PK), Stato, Content, created_at, ID_contentuti(FK), Email_utente_Approvare(FK), Email_utente_Creare(FK)) <br>
+                IMMAGINI (Path(PK)) <br>
+                CONTENERE_VERSIONI_IMMAIGNI (Versione(FK), Path(FK)) <br>
+                CONTENTUTI (ID(PK), Stato, Titolo, Desc, created_at, Email_utente_Approvare(FK), Email_utente_Scrivere(FK)) <br>
+                UTENTE (Email (PK), Password, Nome, Classe, DataNascita) <br>
+                AVERE_UTENTE_RUOLO(Email_utente(FK), Nome_ruolo(FK)) <br>
+                RUOLO (Nome(PK))<br>
+
             </section>
                 
             <hr class="divider">
