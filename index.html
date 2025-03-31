@@ -54,9 +54,10 @@
             </li>
             <li class="nav-item"><a class="nav-link" href="#architettura_informazione">Architettura informazione</a>          
             </li>
-            <li class="nav-item"><a class="nav-link" href="#UML">UML/Logic Model</a>
+            <li class="nav-item"><a class="nav-link" href="#UML">UML/ER/Logic Model</a>
                 <ul class="nav flex-column">
                 <li class="nav-item"><a class="nav-link" href="#umlcasiduso">Casi d'uso</a></li>
+                <li class="nav-item"><a class="nav-link" href="#umlstato">Stato</a></li>
                 <li class="nav-item"><a class="nav-link" href="#umler">Entity Relationship</a></li>  
                 <li class="nav-item"><a class="nav-link" href="#logicmodel">Logic Model</a></li>          
             </ul>
@@ -142,11 +143,20 @@
             
             </section>
 
+            <section id="umlstato">
+                <h2>Diagramma di Stato</h2>
+                <p class="lead">Di seguito il diagramma di stato.</p>
+                <picture>
+                    <img src="/assets/schemas/SchemaStato.drawio.png" alt="Schema Stato" />
+                </picture>
+            
+            </section>
+
             <section id="umler">
                 <h2>Schema ER</h2>
                 <p class="lead">Di seguito lo schema ER.</p>          
                 <picture>
-                    <img src="/assets/schemas/SchemaER.drawio.png" alt="Schema ER" />
+                    <img src="/assets/schemas/ER/SchemaER.drawio.png" alt="Schema ER" />
                     <figcaption>
                         <strong>Ipotesi:</strong>
                         <ul>
@@ -176,7 +186,7 @@
                 <h2>Modello Logico</h2>
                 <p class="lead">Di seguito il Modello Logico.</p>          
                 
-                <b>VERSIONE</b> (Versione(PK), ID_contentuti(PK), Stato, Content, created_at, Email_utente_Approvare(FK), Email_utente_Creare(FK)) <br>
+                <b>VERSIONE</b> (Versione(PK) ID_contentuti(PK), Stato, Content, created_at, Email_utente_Approvare(FK), Email_utente_Creare(FK)) <br>
                 <b>IMMAGINI</b> (Path(PK)) <br>
                 <b>CONTENERE_VERSIONI_IMMAIGNI</b> (Versione(FK), Path(FK)) <br>
                 <b>CONTENTUTI</b> (ID(PK), Stato, Titolo, Desc, created_at, Email_utente_Approvare(FK), Email_utente_Scrivere(FK)) <br>
@@ -240,7 +250,7 @@
                         <li><strong>PC1 - Web Server Apache + RADIUS: </strong> 
                             situato nella <b>DMZ</b>, che serve i client esterni e gestisce il traffico HTTPS attraverso un tunnel OpenTLS.
                         </li>
-                        <li><strong>PC2 - Web Server + Database MySQL + RADIUS: </strong> 
+                        <li><strong>PC2 - Database MySQL + RADIUS: </strong>
                             collocato nella <b>rete interna (LAN privata)</b>, è accessibile solo da PC1 e non è direttamente esposto a Internet.
                         </li>
                     </ul>
@@ -255,21 +265,20 @@
                         <dd>
                             <ul>
                                 <li>Accessibile solo tramite <b>HTTPS</b> su porta 443.</li>
-                                <li>Tunnel <b>OpenTLS</b> per garantire una connessione sicura.</li>
+                                <li>Tunnel <b>OpenTLS</b> per garantire una connessione sicura. Si utilizza il software <b>Stunnel</b> per l'installazione.</li>
                                 <li>Firewall di Ubuntu configurato per <b>bloccare tutto il traffico non autorizzato</b>.</li>
                                 <li>Utilizzo di <b>Apache</b>.</li>
-                                <li><b>RADIUS</b> per autenticazione sicura degli utenti.</li>
+                                <li>Application Server<b>RADIUS</b> per autenticazione sicura degli utenti.</li>
                                 <li>Può comunicare con <b>PC2</b> sulla LAN privata per interagire con il database o il servizio di autenticazione.</li>
                             </ul>
                         </dd>
 
-                        <dt><strong>PC2 - Web Server + Database MySQL + RADIUS (LAN privata):</strong></dt>
+                        <dt><strong>PC2 - Database MySQL + RADIUS (LAN privata):</strong></dt>
                         <dd>
                             <ul>
                                 <li><b>NON è esposto direttamente a Internet</b>.</li>
-                                <li><b>Web Server</b> per elaborazione lato server con <b>PHP</b>.</li>
                                 <li><b>Database MySQL</b> per la gestione dei dati.</li>
-                                <li><b>RADIUS</b> per autenticazione sicura degli utenti.</li>
+                                <li><b>Server RADIUS</b> per autenticazione sicura degli utenti.</li>
                                 <li>Firewall di Ubuntu configurato per <b>accettare solo connessioni da PC1</b>.</li>
                                 <li>Blocco di tutte le connessioni non autorizzate dall'esterno.</li>
                             </ul>
