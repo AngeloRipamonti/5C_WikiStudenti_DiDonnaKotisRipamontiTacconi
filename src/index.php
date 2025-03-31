@@ -1,7 +1,7 @@
 <?php
-    $config = json_decode(file_get_contents(__DIR__ . '/config.json'), true);
+    //$config = json_decode(file_get_contents(__DIR__ . '/config.json'), true);
 
-    $hostname = $config['hostname'];
+   /* $hostname = $config['hostname'];
     $username = $config['username'];
     $password = $config['password'];
     $dbname = $config['database_name'];
@@ -10,9 +10,11 @@
     if ($conn->connect_error) {
         die("Connessione fallita: " . $conn->connect_error);
     }
+        */
 ?>
 <!-- Scribbler Template -->
 <!-- https://tympanus.net/codrops/2018/01/12/freebie-scribbler-website-template-html-sketch/ -->
+
  <!DOCTYPE html>
  <html lang="en">
  <head>
@@ -24,4 +26,4 @@
     ciao 
  </body>
  </html>
-<?php $conn->close() ?>
+<?php //$conn->close() ?>
