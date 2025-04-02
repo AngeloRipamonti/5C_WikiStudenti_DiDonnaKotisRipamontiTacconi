@@ -1,4 +1,4 @@
-export const createPubSub = () => {
+export const pubSub = () => {
     const events = {};
 
     return {

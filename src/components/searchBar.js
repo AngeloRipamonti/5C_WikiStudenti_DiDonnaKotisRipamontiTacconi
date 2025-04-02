@@ -1,4 +1,5 @@
-import { pubSub } from "../pubSub.js";
+import { pubSub } from "./pubsub.js";
+
 export const searchBar = (htmlelement) => {
     return {
         render : ()=>{
@@ -6,9 +7,8 @@ export const searchBar = (htmlelement) => {
             htmlelement.innerHTML = html;
             document.querySelector("#searchBtn").onclick = () => {
                 let data = document.querySelector("#search").value;
-                pubSub.publish("search", data);
+                pubSub.publish("search", data); // Usa l'istanza importata
             }
         },
     }
-
 }
