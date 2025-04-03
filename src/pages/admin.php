@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Progetto Wiki - Admin</title>
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="/assets/css/admin.css">
 </head>
 <body>
 <!--quando si crea la pagina usare come template per il js nel render-->
