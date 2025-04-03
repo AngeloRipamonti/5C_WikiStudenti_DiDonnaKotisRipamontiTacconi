@@ -26,22 +26,11 @@
             <div class="user-row">
                 <div class="email">email@emaildiesempio.it</div>
                 <div class="role-buttons">
-                    <button>Approves</button>
+                    <button>Approver</button>
                     <button>Editor</button>
                 </div>
                 <div class="deny-button">
-                    <input type="text" placeholder="Motivo (opzionale)">
-                    <button>Deny</button>
-                </div>
-            </div>
-            <div class="user-row">
-                <div class="email">email@emaildiesempio.it</div>
-                <div class="role-buttons">
-                    <button>Approves</button>
-                    <button>Editor</button>
-                </div>
-                <div class="deny-button">
-                    <input type="text" placeholder="Motivo (opzionale)">
+                    
                     <button>Deny</button>
                 </div>
             </div>
@@ -52,7 +41,7 @@
                     <button>Editor</button>
                 </div>
                 <div class="deny-button">
-                    <input type="text" placeholder="Motivo (opzionale)">
+                    
                     <button>Deny</button>
                 </div>
             </div>
@@ -63,7 +52,18 @@
                     <button>Editor</button>
                 </div>
                 <div class="deny-button">
-                    <input type="text" placeholder="Motivo (opzionale)">
+                    
+                    <button>Deny</button>
+                </div>
+            </div>
+            <div class="user-row">
+                <div class="email">email@emaildiesempio.it</div>
+                <div class="role-buttons">
+                    <button>Approver</button>
+                    <button>Editor</button>
+                </div>
+                <div class="deny-button">
+                    
                     <button>Deny</button>
                 </div>
             </div>
