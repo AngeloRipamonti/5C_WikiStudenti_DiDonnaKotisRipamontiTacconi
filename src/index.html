@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css">
   <link rel="stylesheet" href="/assets/css/scribbler-global.css">
   <link rel="stylesheet" href="/assets/css/scribbler-landing.css">
+  <link rel="stylesheet" href="/assets/css/home.css">
   <link rel="author" href="humans.txt">
 </head>
 <body>
@@ -22,29 +23,18 @@
   </ul>
 </nav>
 <div class="hero">
-  <h1 class="hero__title">Progetto Wiki</h1>
+  <h1 class="hero__title">HOME</h1>
   <p class="hero__description">Documentazione per il progetto: Wiki</p>
-</div>
-<div class="hero__terminal">
-      <pre>
-        <!-- Place your demo code here -->
-        <code class="shell-session demo">hyperyolo ~ $ </code>
-      </pre>
 </div>
 <div class="wrapper">
   <div class="installation">
-    <h3 class="section__title">Installation</h3>
     <div class="tab__container">
-      <ul class="tab__menu">
-        <li class="tab active" data-tab="mac">mac</li>
-        <li class="tab" data-tab="linux">linux</li>
-        <li class="tab" data-tab="win">win</li>
-      </ul>
-      <pre class="nohighlight code">
-            <code class="tab__pane active mac">$  brew install scribbler</code>
-            <code class="tab__pane linux">$  apt-get install scribbler</code>
-            <code class="tab__pane win">$  gem install scribbler</code>
-          </pre>
+     
+     <!--Aggiungere qua search-->    
+     <div class="search-bar" id="search-bar">
+      <!--<input type="text" placeholder="Search...">
+      <button>Search</button>-->
+      </div>      
         </div>
       </div>
       <div class="feature">
@@ -145,5 +135,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <script src="/assets/js/scribbler.js"></script>
+    <script type="module" src="index.js"></script>
   </body>
 </html>
