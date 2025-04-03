@@ -123,8 +123,3 @@ nav button:hover {
 .deny-button button:hover {
     background-color: #c82333;
 }
-
-/* Icone (potrebbe essere necessario includere una libreria di icone come Font Awesome) */
-.fa-user-circle {
-    /* Stili per l'icona utente */
-}
