@@ -1,5 +1,3 @@
-
-
 .search-bar {
     display: flex;
     margin-bottom: 20px;
@@ -19,3 +17,22 @@
     cursor: pointer;
 }
 
+.login-button {
+    position: fixed; /* Posiziona il pulsante in modo fisso rispetto alla finestra del browser */
+    top: 10px;      /* Distanza dal bordo superiore */
+    right: 10px;     /* Distanza dal bordo destro */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.login-button:hover {
+    background-color: #e0e0e0;
+}
