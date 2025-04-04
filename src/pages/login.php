@@ -17,7 +17,7 @@
     
 
 
-    <script src="login.js" type="module"></script>
+    <script src="/src/login.js" type="module"></script>
 </body>
 
 </html>
