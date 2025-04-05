@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="/assets/css/home.css">
   <link rel="author" href="humans.txt">
 </head>
-<body>
+<body class="min-vh-100">
 <nav>
   <div class="logo"></div>
   <ul class="menu">
@@ -71,8 +71,7 @@
         <a href="index.html" class="button--primary">Documentation</a>
       </div>
     </div>
-    <footer class="footer"> Tacconi - Di Donna - Kotis - Ripamonti</footer>
-    <footer class="footer"> Progetto Wiki </footer>
+    <footer class="footer fixed-bottom">© Copyright <?php echo date("Y"); ?> Angelo Ripamonti, Alexandros Kotis, Lorenzo Di Donna e Simone Tacconi</footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <script src="/assets/js/scribbler.js"></script>
