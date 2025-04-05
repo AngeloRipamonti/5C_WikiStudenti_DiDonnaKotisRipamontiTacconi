@@ -18,7 +18,7 @@
   <div class="logo"></div>
   <ul class="menu">
     <div class="menu__item toggle"><span></span></div>
-    <li class="menu__item"><a href="doc.html" class="link link--dark"><i class="fa fa-book"></i> Documentation</a></li>
+    <li class="menu__item"><a href="/src/pages/doc.php" class="link link--dark"><i class="fa fa-book"></i> Documentation</a></li>
     <button class="login-button" onclick="window.location.href='/src/pages/login.php'">
       <span class="login-icon">👤</span>
   </button>
