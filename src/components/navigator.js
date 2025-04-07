@@ -1,11 +1,11 @@
 const hide = (elements) => {
     elements.forEach((element) => {
-        element.classList.add("hidden");
+        element.classList.add("d-none");
     });
 }
 
 const show = (element) => {
-    element.classList.remove("hidden");
+    element.classList.remove("d-none");
 }
 
 export const createNavigator = (parentElement) => {

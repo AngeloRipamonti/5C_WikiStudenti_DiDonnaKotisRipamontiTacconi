@@ -10,18 +10,16 @@ export function navBarComponent(parentElement) {
            /////// if (!title || !buttons) return false;
 
             let newNavBar = `<nav>
-                          <div class="logo"></div>
+                          <div class="logo">Proggetto Wiki</div>
                           <ul class="menu">
                             <div class="menu__item toggle"><span></span></div>
                             <li class="menu__item"><a href="/src/pages/doc.php" class="link link--dark"><i class="fa fa-book"></i> Documentation</a></li>
                             <li class="menu__item"><a href="/src/pages/login.php" class="link link--dark"><i class="fa fa-user"></i></a></li>
                           </ul>
-                        </nav>
-                        <div class="nav-bar" id="nav-bar">
-  <h1 class="hero__title">Home</h1>
-  <!--<p class="hero__description">Documentazione per il progetto: Wiki</p>-->
-</div>
-                           `;
+                          <div class="nav-bar" id="nav-bar">
+                <h1 class="hero__title">Home</h1>
+                    </div>
+                      </nav>`;
 
             parentElement.innerHTML = newNavBar;
 
