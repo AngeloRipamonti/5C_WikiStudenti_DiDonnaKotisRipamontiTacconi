@@ -14,7 +14,7 @@ export function navBarComponent(parentElement) {
                           <ul class="menu">
                             <div class="menu__item toggle"><span></span></div>
                             <li class="menu__item"><a href="/src/pages/doc.php" class="link link--dark"><i class="fa fa-book"></i> Documentation</a></li>
-                            <li class="menu__item"><a href="/src/pages/login.php" class="link link--dark"><i class="fa fa-user"></i></a></li>
+                            <li class="menu__item"><button data-bs-toggle="modal" data-bs-target="#exampleModal" class="link link--dark"><i class="fa fa-user"></i></button></li>
                           </ul>
                         </nav>
                         <div class="nav-bar" id="nav-bar">

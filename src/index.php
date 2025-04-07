@@ -11,9 +11,61 @@
   <link rel="stylesheet" href="/assets/css/scribbler-global.css">
   <link rel="stylesheet" href="/assets/css/scribbler-landing.css">
   <link rel="stylesheet" href="/assets/css/home.css">
+
   <link rel="author" href="humans.txt">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 </head>
 <body class="min-vh-100">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js" integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+" crossorigin="anonymous"></script>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="registerBody" class="d-none">
+          <div class="input-container">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Email">
+                </div>
+                <div class="input-container">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Password">
+                </div>
+                <div class="input-container">
+                    <label>Register as:</label>
+                    <div class="role-selection">
+                        <input type="radio" id="approver" name="role" value="approver">
+                        <label class="role-btn black" for="approver">approver</label>
+                        <input type="radio" id="editor" name="role" value="editor">
+                        <label class="role-btn gray" for="editor">editor</label>
+                    </div>
+                </div>
+
+        </div>
+      <div id="loginBody">
+        <div>
+      <input type="text" id="usernameInput" placeholder="Username">
+            </div>
+            <div>
+                <input type="password" id="passwordInput" placeholder="Password">
+            </div>
+            <p>Non hai un account? <a  id="registerA" href='#'>Registrati</a></p>
+      </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id="loginButton" class="btn btn-primary">Login</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div id="nnnnnn"></div>
 
@@ -60,7 +112,15 @@
         <a href="index.html" class="button--primary">Documentation</a>
       </div>
     </div>
+    <div id="login" class="hide">
+      <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" >
+  Launch demo modal
+</button>
 
+<!-- Modal -->
+
+    </div>
     <footer class="footer fixed-bottom">© Copyright <?php echo date("Y"); ?> Angelo Ripamonti, Alexandros Kotis, Lorenzo Di Donna e Simone Tacconi</footer>
 <script type="module" src="./index.js"></script>
 

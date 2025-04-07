@@ -7,3 +7,11 @@ console.log(document.querySelector("#search-bar"));
 search.render();
 navbar.render(true);
 console.log(document.querySelector("#nav-bar"));
+let registerA = document.querySelector("#registerA");
+registerA.onclick=()=>{
+    let loginBody = document.querySelector("#loginBody");
+    loginBody.classList.add("d-none");
+    let registerBody = document.querySelector("#registerBody");
+    registerBody.classList.remove("d-none");
+
+}
