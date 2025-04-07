@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Scribbler - a codding landing page template for codrops</title>
+  <title>Progetto Wiki - Home</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css">
@@ -14,29 +14,18 @@
   <link rel="author" href="humans.txt">
 </head>
 <body class="min-vh-100">
-<nav>
-  <div class="logo"></div>
-  <ul class="menu">
-    <div class="menu__item toggle"><span></span></div>
-    <li class="menu__item"><a href="/src/pages/doc.php" class="link link--dark"><i class="fa fa-book"></i> Documentation</a></li>
-    <button class="login-button" onclick="window.location.href='/src/pages/login.php'">
-      <span class="login-icon">👤</span>
-  </button>
-  </ul>
-</nav>
-<div class="hero">
-  <h1 class="hero__title">HOME</h1>
-  <!--<p class="hero__description">Documentazione per il progetto: Wiki</p>-->
-</div>
+
+<div id="nnnnnn"></div>
+
 <div class="wrapper">
   <div class="installation">
-    <div class="tab__container">
-     
+    <div class="tab__container" >
+        <div class="search-bar" id="search-bar">
+            <!--<input type="text" placeholder="Search...">
+            <button>Search</button>-->
+        </div>
      <!--Aggiungere qua search-->    
-     <div class="search-bar" id="search-bar">
-      <!--<input type="text" placeholder="Search...">
-      <button>Search</button>-->
-      </div>      
+
         </div>
       </div>
       <div class="feature">
@@ -71,10 +60,12 @@
         <a href="index.html" class="button--primary">Documentation</a>
       </div>
     </div>
+
     <footer class="footer fixed-bottom">© Copyright <?php echo date("Y"); ?> Angelo Ripamonti, Alexandros Kotis, Lorenzo Di Donna e Simone Tacconi</footer>
+<script type="module" src="./index.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <script src="/assets/js/scribbler.js"></script>
-    <script type="module" src="index.js"></script>
   </body>
 </html>
