@@ -6,7 +6,7 @@ export function database() {
     const API_URL = 'http://localhost:3000/src/service/api.php'; 
 
     return {
-        getAccount: async function (username, password){
+        getAccount: async function (email, password){
             let response = await fetch(url,{
                 method: "GET",
                 headers:{
@@ -14,7 +14,7 @@ export function database() {
                 },
                 body: JSON.stringify({
                     "table": "users",
-                    "username": username,
+                    "email": email,
                     "password": password
                 })
             });

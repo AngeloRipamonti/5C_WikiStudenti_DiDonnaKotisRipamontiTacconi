@@ -12,8 +12,8 @@
             switch ($input["table"]) {
                 case "users":
                     if($input["username"] && $input["password"]){
-                        $stmt = $conn->prepare("SELECT * FROM USERS WHERE USERNAME = ? AND PASSWORD = ?");
-                        $stmt->bind_param("ss", $input["username"], $input["password"]);
+                        $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? AND password = ?");
+                        $stmt->bind_param("ss", $input["email"], $input["password"]);
                         $stmt->execute();
                         $result = $stmt->get_result();
                         if($result->num_rows === 1){
@@ -35,7 +35,9 @@
         case 'POST':
             switch ($input["table"]) {
                 case "users":
-                    $conn->query(""); //INSERT INTO
+                    $stmt = $conn->prepare("INSERT INTO users (email, password, name, class, birth_date) VALUES (?, ?, ?, ?, ?)");
+                    $stmt->bind_param("sssss", $input["email"], $input["password"], $input["name"], $input["class"], $input["birth_date"]);
+                    $stmt->execute();
                     echo json_encode(["message" => "added successfully"]);
                     break;
                 case "content":
