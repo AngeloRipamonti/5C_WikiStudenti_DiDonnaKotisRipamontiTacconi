@@ -1,60 +1,97 @@
 <?php
-include 'database.php';
+    include 'database.php';
 
-header("Content-Type: application/json");
+    header("Content-Type: application/json");
 
-$method = $_SERVER['REQUEST_METHOD'];
-$input = json_decode(file_get_contents('php://input'), true);
+    $method = $_SERVER['REQUEST_METHOD'];
+    $input = json_decode(file_get_contents('php://input'), true);
+    // input contiene il body
 
-switch ($method) {
-    case 'GET':
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-            $result = $conn->query(""); //SELECT WHERE
-            $data = $result->fetch_assoc();
-            echo json_encode($data);
-        } else {
-            $result = $conn->query(""); //SELECT ALL
-            $data = [];
-            while ($row = $result->fetch_assoc()) {
-                $data[] = $row;
+    switch ($method) {
+        case 'GET':
+            switch ($input["table"]) {
+                case "users":
+                    if($input["username"] && $input["password"]){
+                        $stmt = $conn->prepare("SELECT * FROM USERS WHERE USERNAME = ? AND PASSWORD = ?");
+                        $stmt->bind_param("ss", $input["username"], $input["password"]);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        if($result->num_rows === 1){
+                            $row = $result->fetch_assoc();
+                            echo json_encode($row);
+                        } else {
+                            echo json_encode(["error" => "Invalid credentials"]);
+                        }
+                    }
+                    break;
+                case "content":
+                    break;
+                default:
+                    echo json_encode(["message" => "Invalid request method"]);
+                    break;
             }
-            echo json_encode($data);
-        }
-        break;
+            break;
 
-    case 'POST':
-        // INPUT FORM POST
-        $conn->query(""); //INSERT INTO
-        echo json_encode(["message" => "added successfully"]);
-        break;
+        case 'POST':
+            switch ($input["table"]) {
+                case "users":
+                    $conn->query(""); //INSERT INTO
+                    echo json_encode(["message" => "added successfully"]);
+                    break;
+                case "content":
+                    break;
+                default:
+                    echo json_encode(["message" => "Invalid request method"]);
+                    break;
+            }
+            break;
 
-    case 'PUT':
-        //TAKE FORM INPUT SET E WHERE
-        $conn->query(""); //UPDATE 
-        if($conn->affected_rows==0)
-                echo json_encode(["message" => "doesn't exist"]);
-            else
-                echo json_encode(["message" => "updated successfully"]);
-        
-        break;
+        case 'PUT':
+            switch ($input["table"]) {
+                case "users":
 
-    case 'DELETE':
-        $id = $input['id'];
-        
-        if(($conn->query(""))===TRUE) //DELETE
+                    break;
+                case "content":
+                    break;
+                default:
+                    echo json_encode(["message" => "Invalid request method"]);
+                    break;
+            }
+            //TAKE FORM INPUT SET E WHERE
+            $conn->query(""); //UPDATE
             if($conn->affected_rows==0)
-                echo json_encode(["message" => "doesn't exist"]);
+                    echo json_encode(["message" => "doesn't exist"]);
+                else
+                    echo json_encode(["message" => "updated successfully"]);
+
+            break;
+
+        case 'DELETE':
+            switch ($input["table"]) {
+                case "users":
+
+                    break;
+                case "content":
+                    break;
+                default:
+                    echo json_encode(["message" => "Invalid request method"]);
+                    break;
+            }
+            $id = $input['id'];
+
+            if(($conn->query(""))===TRUE) //DELETE
+                if($conn->affected_rows==0)
+                    echo json_encode(["message" => "doesn't exist"]);
+                else
+                    echo json_encode(["message" => "deleted successfully"]);
             else
-                echo json_encode(["message" => "deleted successfully"]);
-        else
-            echo json_encode(["message" => "error"]);
-        break;
+                echo json_encode(["message" => "error"]);
+            break;
 
-    default:
-        echo json_encode(["message" => "Invalid request method"]);
-        break;
-}
+        default:
+            echo json_encode(["message" => "Invalid request method"]);
+            break;
+    }
 
-$conn->close();
+    $conn->close();
 ?>

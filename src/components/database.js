@@ -6,6 +6,20 @@ export function database() {
     const API_URL = 'http://localhost:3000/src/service/api.php'; 
 
     return {
+        getAccount: async function (username, password){
+            let response = await fetch(url,{
+                method: "GET",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "table": "users",
+                    "username": username,
+                    "password": password
+                })
+            });
+
+        },
         getData: async function (id = null) {
                 /*
                 async function getData() {
