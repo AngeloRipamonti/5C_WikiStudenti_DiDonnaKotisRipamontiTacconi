@@ -1,17 +1,14 @@
 import { searchBarComponent } from "./components/searchBar.js";
 import { navBarComponent} from "./components/navBar.js";
-
+import { generateLoginComponent } from "./components/formLogin.js";
 const navbar = navBarComponent(document.getElementById("nnnnnn"));
 const search = searchBarComponent(document.querySelector("#search-bar"));
 console.log(document.querySelector("#search-bar"));
 search.render();
 navbar.render(true);
-console.log(document.querySelector("#nav-bar"));
-let registerA = document.querySelector("#registerA");
-registerA.onclick=()=>{
-    let loginBody = document.querySelector("#loginBody");
-    loginBody.classList.add("d-none");
-    let registerBody = document.querySelector("#registerBody");
-    registerBody.classList.remove("d-none");
-
-}
+const register =  generateLoginComponent(document.querySelector("#registerBody"));
+console.log(document.querySelector("#registerBody"));
+register.renderFormRegister();
+const login=generateLoginComponent(document.querySelector("#loginBody"));
+login.renderFormLogin();
+console.log(document.querySelector("#loginBody"));

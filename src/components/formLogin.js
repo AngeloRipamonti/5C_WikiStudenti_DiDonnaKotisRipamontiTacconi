@@ -43,30 +43,46 @@ export const generateLoginComponent = (parentElement) => {
         renderFormLogin: () => {
 
             let html = `
-            <h2>Accedi</h2>
-            <div>
-                <input type="text" id="usernameInput" placeholder="Username">
+           <div>
+      <input type="text" id="usernameInput" placeholder="Username">
             </div>
             <div>
                 <input type="password" id="passwordInput" placeholder="Password">
             </div>
-            <button type="button" id="loginButton">Login</button>
-            <p>Non hai un account? <a href='register.html'>Registrati</a></p>
-            
-            <!-- Pulsante per tornare alla Home -->
-            <button class="home-button" onclick="window.location.href='home.php'">
-                🔙 Torna alla Home
-            </button>
+            <p>Non hai un account? <a  id="registerA" href='#'>Registrati</a></p>
+      </div>
         `;
 
-            document.getElementById("login").innerHTML = html;
+           parentElement.innerHTML = html;
+           document.querySelector("#ModalLabel").innerHTML = "Login";
+
+           document.querySelector("#closeModalClient").onclick = () => {
+            let loginBody = document.querySelector("#loginBody");
+            loginBody.classList.add("d-none");
+            let registerBody = document.querySelector("#registerBody");
+            registerBody.classList.remove("d-none");
+            document.querySelector("#ModalLabel").innerHTML = "Register";
+
+        }
+
+
+
+            document.querySelector("#registerA").onclick = () => {
+                let loginBody = document.querySelector("#loginBody");
+                loginBody.classList.add("d-none");
+                let registerBody = document.querySelector("#registerBody");
+                registerBody.classList.remove("d-none");
+                document.querySelector("#ModalLabel").innerHTML = "Registrati";
+
+            }
+/*
             document.getElementById("loginButton").onclick = () => {
                 const username = document.getElementById("usernameInput").value;
                 const password = document.getElementById("passwordInput").value;
 
                 if (username && password) {
                     login(username, password);
-                    /*.then(r => {
+                    .then(r => {
                         if (r) {
                             isLogged = true;
                             sessionStorage.setItem("Logged", true);
@@ -83,16 +99,17 @@ export const generateLoginComponent = (parentElement) => {
                     })
                     .catch(err => {
                         console.log(err) ;
-                    });*/
+                    });
                 }
+                    
             };
+            */
         },
         isLogged: () => {
             return isLogged;
         },
         renderFormRegister: () => {
             let html = `
-                <h2>Register</h2>
                 <div class="input-container">
                     <label for="email">Email</label>
                     <input type="email" id="email" placeholder="Email">
@@ -109,16 +126,29 @@ export const generateLoginComponent = (parentElement) => {
                         <input type="radio" id="editor" name="role" value="editor">
                         <label class="role-btn gray" for="editor">editor</label>
                     </div>
+                    <p>hai già un account? <a  id="AccediA" href='#'>Accedi</a></p>
                 </div>
                 <div id="result"></div>`;
             parentElement.innerHTML = html;
-
-            document.querySelector("#registerBtn").onclick = () => {
-                let username = document.querySelector("#username").value;
-                let email = document.querySelector("#email").value;
-                let password = document.querySelector("#password").value;
+            document.querySelector("#ModalLabel").innerHTML = "Registrati";
+            document.querySelector("#AccediA").onclick = () => {
+                let loginBody = document.querySelector("#loginBody");
+                loginBody.classList.remove("d-none");
+                let registerBody = document.querySelector("#registerBody");
+                registerBody.classList.add("d-none");
+                document.querySelector("#ModalLabel").innerHTML = "Login";
 
             }
+            document.querySelector("#closeModalClient").onclick = () => {
+                let loginBody = document.querySelector("#loginBody");
+                loginBody.classList.remove("d-none");
+                let registerBody = document.querySelector("#registerBody");
+                registerBody.classList.add("d-none");
+                document.querySelector("#ModalLabel").innerHTML = "Login";
+
+            }
+
+
         }
     };
 };
