@@ -80,7 +80,26 @@
                     break;
 
                 case "content":
-                    echo json_encode(["message" => "Content PUT not implemented"]);
+                    if (!empty($input["approved"]) && !empty($input["approver"]) && !empty($input["version"])) {
+                        $msg = "";
+
+                        if (!empty($input["content"])) {
+                            $stmt = $conn->prepare("UPDATE contents SET status = ?, approver_email = ? WHERE id = ?");
+                            $stmt->bind_param("isi", $input["approved"], $input["approver"], $input["content"]);
+                            $stmt->execute();
+                            $msg .= $stmt->affected_rows > 0 ? "Content updated. " : "Content doesn't exist. ";
+                        }
+
+                        $stmt = $conn->prepare("UPDATE versions SET status = ?, approver_email = ? WHERE version = ?");
+                        $stmt->bind_param("isi", $input["approved"], $input["approver"], $input["version"]);
+                        $stmt->execute();
+                        $msg .= $stmt->affected_rows > 0 ? "Version updated successfully." : "Version doesn't exist. ";
+
+                        echo json_encode(["message" => $msg]);
+                    }
+                    else {
+                        echo json_encode(["message" => "Missing required fields: 'approved', 'approver', and/or 'version'."]);
+                    }
                     break;
 
                 default:
