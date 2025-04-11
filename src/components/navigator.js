@@ -11,7 +11,7 @@ const show = (element) => {
 export const createNavigator = (parentElement) => {
 
     const render = () => {
-        const pages = Array.from(document.querySelectorAll(".poiPage"));
+        const pages = Array.from(document.querySelectorAll(".wiki-page"));
         const url = new URL(document.location.href);
         const pageName = url.hash.replace("#", "");
         const selected = pages.filter((page) => page.id === pageName)[0] || pages[0];
@@ -20,5 +20,5 @@ export const createNavigator = (parentElement) => {
         //show(document.getElementById("spinner"));
     }
     window.addEventListener('popstate', render);
-    render();
+    //render();
 }

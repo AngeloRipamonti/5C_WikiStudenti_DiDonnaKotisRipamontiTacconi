@@ -119,6 +119,18 @@ export const generateLoginComponent = (parentElement) => {
                     <input type="password" id="password" placeholder="Password">
                 </div>
                 <div class="input-container">
+                    <label for="name">Nome</label>
+                    <input type="text" id="name" placeholder="Nome">
+                </div>
+                <div class="input-container">
+                    <label for="class">Classe</label>
+                    <input type="text" id="class" placeholder="Classe">
+                </div>
+                <div class="input-container">
+                    <label for="date">Data di nascita</label>
+                    <input type="date" id="dateOfBirth" placeholder="Data di nascita">
+                </div>
+                <div class="input-container">
                     <label>Register as:</label>
                     <div class="role-selection">
                         <input type="radio" id="approver" name="role" value="approver">
