@@ -1,5 +1,8 @@
 <?php
     include 'database.php';
+    if (!isset($conn)) {
+        die("Connessione non inizializzata");
+    }
     header("Content-Type: application/json");
 
     $method = $_SERVER['REQUEST_METHOD'];
@@ -10,7 +13,7 @@
             switch ($input["table"]) {
                 case "users":
                     if (!empty($input["email"]) && !empty($input["password"])) {
-                        $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? AND password = ?");
+                        $stmt = $conn->prepare("SELECT DISTINCT * FROM users AS u JOIN roles_users AS ru ON u.email = ru.email WHERE email = ? AND password = ?");
                         $stmt->bind_param("ss", $input["email"], $input["password"]);
                         $stmt->execute();
                         $result = $stmt->get_result();
@@ -27,14 +30,12 @@
 
                 case "content":
                     if (!empty($input["version"]) && !empty($input["id"])) {
-                        $stmt = $conn->prepare("SELECT * FROM contents c JOIN versions v ON c.id = v.content_id WHERE c.id = ? AND v.version = ?");
+                        $stmt = $conn->prepare("SELECT DISTINCT * FROM contents c JOIN versions v ON c.id = v.content_id WHERE c.id = ? AND v.version = ?");
                         $stmt->bind_param("ii", $input["id"], $input["version"]);
                         $stmt->execute();
                         $result = $stmt->get_result();
                     } else {
-                        $stmt = $conn->prepare("SELECT * FROM contents c JOIN versions AS v ON c.id = v.content_id JOIN versions_images AS vi ON v.version = vi.version AND c.id = vi.id JOIN images AS i ON i.path = vi.path");
-                        $stmt->execute();
-                        $result = $stmt->get_result();
+                        $result = $conn->query("SELECT DISTINCT * FROM contents c JOIN versions AS v ON c.id = v.content_id JOIN versions_images AS vi ON v.version = vi.version AND c.id = vi.id JOIN images AS i ON i.path = vi.path");
                     }
 
                     $data = [];
@@ -113,4 +114,4 @@
     }
 
     $conn->close();
-?>
+/*?>*/
