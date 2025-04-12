@@ -3,7 +3,7 @@ import { navBarComponent} from "./components/navBar.js";
 import { generateLoginComponent } from "./components/formLogin.js";
 import { createNavigator } from "./components/navigator.js";
 const navigator = createNavigator(document.querySelector("#pages"));
-const navbar = navBarComponent(document.getElementById("nnnnnn"));
+const navbar = navBarComponent(document.getElementById("nav-bar"));
 const search = searchBarComponent(document.querySelector("#search-bar"));
 console.log(document.querySelector("#search-bar"));
 search.render();

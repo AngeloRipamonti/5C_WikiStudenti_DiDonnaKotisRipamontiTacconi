@@ -69,7 +69,7 @@
       </div>
     </div>
 </div>
-    <div id="nnnnnn"></div>
+    <div id="nav-bar"></div>
 
     <div class="wrapper">
       <div class="installation">
