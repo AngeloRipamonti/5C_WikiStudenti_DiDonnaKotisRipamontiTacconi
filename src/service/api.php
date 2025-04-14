@@ -2,12 +2,11 @@
     include 'database.php';
     require_once 'MailerService.php';
 
-    $mailer = new MailerService('example@example.com', 'WikiProject');
+    if (!isset($conn) || !isset($config)) die("Connessione non inizializzata o configurazione non trovata.");
+
+    $mailer = new MailerService($config["mail"], 'WikiProject');
 
     header("Content-Type: application/json");
-
-    if (!isset($conn)) die("Connessione non inizializzata");
-
 
     $method = $_SERVER['REQUEST_METHOD'];
     $input = json_decode(file_get_contents('php://input'), true);
