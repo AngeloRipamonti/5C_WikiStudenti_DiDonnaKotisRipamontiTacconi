@@ -24,13 +24,12 @@
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="ModalLabel"></h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div id="registerBody" class="d-none">
+          <div id="modalbody" class="">
             <!-- <div class="input-container">
                     <label for="email">Email</label>
                     <input type="email" id="email" placeholder="Email">
@@ -50,18 +49,6 @@
                 </div>-->
 
           </div>
-          <div id="loginBody">
-                    <!-- <div>
-              <input type="text" id="usernameInput" placeholder="Username">
-                    </div>
-                    <div>
-                        <input type="password" id="passwordInput" placeholder="Password">
-                    </div>
-                    <p>Non hai un account? <a  id="registerA" href='#'>Registrati</a></p>
-              </div>-->
-          </div>
-
-
         </div>
       </div>
     </div>

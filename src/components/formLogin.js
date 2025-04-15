@@ -24,7 +24,7 @@ export const generateLoginComponent = (parentElement, pubSub) => {
     };
 
     return {
-        build: () => {//inputToken, inputPrivateClass) => {
+        build: function () {//inputToken, inputPrivateClass) => {
             isLogged = true;
             /* token = inputToken;
              isLogged = sessionStorage.getItem("logged") || false;
@@ -40,7 +40,7 @@ export const generateLoginComponent = (parentElement, pubSub) => {
              }*/
         },
 
-        renderFormLogin: () => {
+        renderFormLogin: function ()  {
 
             let html = `
            <div>
@@ -49,7 +49,7 @@ export const generateLoginComponent = (parentElement, pubSub) => {
             <div>
                 <input type="password" id="passwordInput" placeholder="Password">
             </div>
-            <p>Non hai un account? <a  id="registerA" href='#'>Registrati</a></p>
+            <p>Non hai un account? <button type="button" id="registerA">Registrati</button></p>
       </div>
       <div class="modal-footer">
             <button type="button" id="closeModalClient" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -70,12 +70,10 @@ export const generateLoginComponent = (parentElement, pubSub) => {
         }
 
 
-
+console.log(parentElement)
             document.querySelector("#registerA").onclick = () => {
-                let loginBody = document.querySelector("#loginBody");
-                loginBody.classList.add("d-none");
-                let registerBody = document.querySelector("#registerBody");
-                registerBody.classList.remove("d-none");
+               console.log(this)
+                this.renderFormRegister()
                 document.querySelector("#ModalLabel").innerHTML = "Registrati";
 
             }
@@ -112,7 +110,7 @@ export const generateLoginComponent = (parentElement, pubSub) => {
         isLogged: () => {
             return isLogged;
         },
-        renderFormRegister: () => {
+        renderFormRegister: function()  {
             let html = `
                 <div class="input-container">
                     <label for="email">Email</label>
@@ -153,9 +151,9 @@ export const generateLoginComponent = (parentElement, pubSub) => {
             document.querySelector("#ModalLabel").innerHTML = "Registrati";
             document.querySelector("#AccediA").onclick = () => {
                 let loginBody = document.querySelector("#loginBody");
-                loginBody.classList.remove("d-none");
+                loginBody.classList.add("d-none");
                 let registerBody = document.querySelector("#registerBody");
-                registerBody.classList.add("d-none");
+                registerBody.classList.remove("d-none");
                 document.querySelector("#ModalLabel").innerHTML = "Login";
 
             }
