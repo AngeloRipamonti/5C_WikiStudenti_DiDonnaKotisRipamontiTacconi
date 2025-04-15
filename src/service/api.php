@@ -1,14 +1,32 @@
 <?php
-    include 'database.php';
-    require_once 'MailerService.php';
+   // include 'database.php';
+   
+    $config = json_decode(file_get_contents(__DIR__ . '/config.json'), true);
+
+    $hostname = $config['hostname'];
+    $username = $config['username'];
+    $password = $config['password'];
+    $dbname = $config['database_name'];
+    $port = $config['port'];
+    $conn = new mysqli($hostname, $username, $password, $dbname, $port);
+    if ($conn->connect_error) {
+        die("Connessione fallita: " . $conn->connect_error);
+    } 
+/*?>*/
+    require_once 'mailService.php';
 
     if (!isset($conn) || !isset($config)) die("Connessione non inizializzata o configurazione non trovata.");
 
     $mailer = new MailerService($config["mail"], 'WikiProject');
 
     header("Content-Type: application/json");
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+foreach($_SERVER as $x => $y){
+    echo $x . " ".$y."\n";
+}
 
-    $method = $_SERVER['REQUEST_METHOD'];
+    $method = "";//$_SERVER['REQUEST_METHOD'];
     $input = json_decode(file_get_contents('php://input'), true);
 
     function respond($data) {
@@ -16,7 +34,7 @@
         exit;
     }
 
-    switch ($method) {
+    switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
             switch ($input["table"]) {
                 case "users":
@@ -167,3 +185,5 @@
     }
 
     $conn->close();
+
+    
