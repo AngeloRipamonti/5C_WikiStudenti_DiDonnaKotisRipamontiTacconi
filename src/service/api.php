@@ -71,11 +71,19 @@
                     }
 
                     $hashedPassword = password_hash($input["password"], PASSWORD_DEFAULT);
-                    $stmt = $conn->prepare("INSERT INTO users (email, password, name, class, birth_date) VALUES (?, ?, ?, ?, ?)");
-                    $stmt->bind_param("sssss", $input["email"], $hashedPassword, $input["name"], $input["class"], $input["birth_date"]);
-                    $stmt->execute();
+                    try {
+                        $stmt = $conn->prepare("INSERT INTO users (email, password, name, class, birth_date) VALUES (?, ?, ?, ?, ?)");
+                        $stmt->bind_param("sssss", $input["email"], $hashedPassword, $input["name"], $input["class"], $input["birth_date"]);
+                        $stmt->execute();
+                        $stmt = $conn->prepare("INSERT INTO roles_users (role, email) VALUES (?, ?)");
+                        $stmt->bind_param("ss", $input["role"], $input["email"]);
+                        $stmt->execute();
 
-                    respond(["message" => "User added successfully"]);
+                        respond(["message" => "User added successfully"]);
+                    }
+                    catch (Exception $e) {
+                        respond(["message" => $e->getMessage()]);
+                    }
                     break;
 
                 case "content":

@@ -1,4 +1,4 @@
-export const generateLoginComponent = (parentElement) => {
+export const generateLoginComponent = (parentElement, pubSub) => {
     let token;
     let isLogged;
     let privateClass;
@@ -51,6 +51,10 @@ export const generateLoginComponent = (parentElement) => {
             </div>
             <p>Non hai un account? <a  id="registerA" href='#'>Registrati</a></p>
       </div>
+      <div class="modal-footer">
+            <button type="button" id="closeModalClient" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" id="loginButton" class="btn btn-primary">Login</button>
+          </div>
         `;
 
            parentElement.innerHTML = html;
@@ -140,7 +144,11 @@ export const generateLoginComponent = (parentElement) => {
                     </div>
                     <p>hai già un account? <a  id="AccediA" href='#'>Accedi</a></p>
                 </div>
-                <div id="result"></div>`;
+                <div id="result"></div>
+<div class="modal-footer">
+            <button type="button" id="closeModalClient" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" id="registerButton" class="btn btn-primary">Register</button>
+          </div>`;
             parentElement.innerHTML = html;
             document.querySelector("#ModalLabel").innerHTML = "Registrati";
             document.querySelector("#AccediA").onclick = () => {
@@ -159,8 +167,20 @@ export const generateLoginComponent = (parentElement) => {
                 document.querySelector("#ModalLabel").innerHTML = "Login";
 
             }
-
-
+            document.getElementById("registerButton").onclick = () => {
+                let data = {
+                    email: document.getElementById("email").value,
+                    password: document.getElementById("password").value,
+                    name: document.getElementById("name").value,
+                    class: document.getElementById("class").value,
+                    dateOfBirth: document.getElementById("dateOfBirth").value,
+                    role: document.getElementById("approver").checked ? "approver" : document.getElementById("editor").checked ? "editor" : "viewer"
+                }
+                pubSub.publish("register", data);
+            }
+            pubSub.subscribe("registerComplete", (data) => {
+                document.getElementById("result").innerText = data;
+            })
         }
     };
 };

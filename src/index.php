@@ -61,10 +61,7 @@
               </div>-->
           </div>
 
-          <div class="modal-footer">
-            <button type="button" id="closeModalClient" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" id="loginButton" class="btn btn-primary">Login</button>
-          </div>
+
         </div>
       </div>
     </div>
