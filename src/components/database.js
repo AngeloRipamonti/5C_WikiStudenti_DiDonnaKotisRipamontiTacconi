@@ -18,7 +18,21 @@ export function database(pubSub) {
               })
           });
           return await response.json();
-        }
+        },
+        login: async function (email, password){
+            let response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "table": "users",
+                    "email": email,
+                    "password": password
+                })
+            });
+            return await response.json();
+          },
     }
     pubSub.subscribe("register", async (data)=>{
         //Controlli data
