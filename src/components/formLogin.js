@@ -44,7 +44,7 @@ export const generateLoginComponent = (parentElement, pubSub) => {
 
             let html = `
            <div>
-      <input type="text" id="usernameInput" placeholder="Username">
+      <input type="text" id="usernameInput" placeholder="Email">
             </div>
             <div>
                 <input type="password" id="passwordInput" placeholder="Password">
@@ -77,6 +77,12 @@ console.log(parentElement)
                 document.querySelector("#ModalLabel").innerHTML = "Registrati";
 
             }
+            let usernameInput = document.getElementById("usernameInput");
+            let passwordInput = document.getElementById("passwordInput");
+            pubSub.publish("loginComplete",{
+                email:usernameInput.value,
+                password:passwordInput.value
+            });
 /*
             document.getElementById("loginButton").onclick = () => {
                 const username = document.getElementById("usernameInput").value;

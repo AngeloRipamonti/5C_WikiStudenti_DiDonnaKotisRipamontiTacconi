@@ -34,10 +34,16 @@ export function database(pubSub) {
             return await response.json();
           },
     }
+    pubSub.subscribe("loginComplete", async (data)=>{
+        let response = await databaseDict.login(data.email, data.password);
+        pubSub.publish("loginComplete", response);  
+    })
     pubSub.subscribe("register", async (data)=>{
         //Controlli data
+        console.log("dwfj")
         let response = await databaseDict.register(data.email, data.password, data.name, data.dateOfBirth, data.class, data.role);
-        pubSub.publish("registerComplete", response);
+        pubSub.publish("registerComplete", response);   
     })
     return databaseDict;
+    
 }
