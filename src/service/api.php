@@ -1,6 +1,5 @@
 <?php
-   // include 'database.php';
-   
+    require_once 'mailService.php';
     $config = json_decode(file_get_contents(__DIR__ . '/config.json'), true);
 
     $hostname = $config['hostname'];
@@ -11,22 +10,14 @@
     $conn = new mysqli($hostname, $username, $password, $dbname, $port);
     if ($conn->connect_error) {
         die("Connessione fallita: " . $conn->connect_error);
-    } 
-/*?>*/
-    require_once 'mailService.php';
-
-    if (!isset($conn) || !isset($config)) die("Connessione non inizializzata o configurazione non trovata.");
-
+    }
     $mailer = new MailerService($config["mail"], 'WikiProject');
 
     header("Content-Type: application/json");
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-foreach($_SERVER as $x => $y){
-    echo $x . " ".$y."\n";
-}
 
-    $method = "";//$_SERVER['REQUEST_METHOD'];
+
     $input = json_decode(file_get_contents('php://input'), true);
 
     function respond($data) {
