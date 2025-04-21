@@ -20,16 +20,11 @@ export function database(pubSub) {
           return await response.json();
         },
         login: async function (email, password){
-            let response = await fetch(url, {
+            let response = await fetch(url + `?${new URLSearchParams({ table: "users", email: email, password: password }).toString()}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({
-                    "table": "users",
-                    "email": email,
-                    "password": password
-                })
             });
             return await response.json();
           },

@@ -67,42 +67,7 @@
         </div>
       </div>
       <div class="feature" id="pages">
-        <a href="#argomento1">
-        <div class="feature__item wiki-page" id="argomento1">
-          <h3 class="section__title">Argomento 1</h3>
-          <p>Start writing your notes immediately in any terminal! No more time wasted on navigating and opening your text editor.</p>
-        </div>
-        </a>
-        <a href="#argomento2">
-        <div class="feature__item wiki-page" id="argomento2">
-          <h3 class="section__title">Argomento 2</h3>
-          <p>Save your file in Dropbox then you can access to it from anywhere.</p>
-        </div>
-        </a>
-        <a href="#argomento3">
-        <div class="feature__item wiki-page" id="argomento3">
-          <h3 class="section__title">Argomento 3</h3>
-          <p>Encrypt your notes optionally. No one can get to your secrets! </p>
-        </div>
-        </a>
-        <a href="#argomento4">
-        <div class="feature__item wiki-page" id="argomento4">
-          <h3 class="section__title">Argomento 4</h3>
-          <p>Maintain all your settings in a single <span class="code code--inline">config.json</span> file. Never need to redo the setting every single time jotting down a note.</p>
-        </div>
-        </a>
-        <a href="#argomento5">
-        <div class="feature__item wiki-page"   id="argomento5">
-          <h3 class="section__title">Argomento 5</h3>
-          <p>For better readability, scribbler has a clean, beautiful color scheme allow you to scan files fast.</p>
-        </div>
-        </a>
-        <a href="#argomento6">
-        <div class="feature__item wiki-page" id="argomento6">
-          <h3 class="section__title">Argomento 6</h3>
-          <p>You can expect common keybindings for scribbler. Customize <span class="code code--inline">bindings.json</span> for your own liking! </p>
-        </div>
-        </a>
+        
       </div>
 
       <div class="callout">
