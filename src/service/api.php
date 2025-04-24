@@ -19,7 +19,7 @@
 
 
     $input = json_decode(file_get_contents('php://input'), true);
-
+    
     function respond($data) {
         echo json_encode($data);
         exit;
@@ -27,7 +27,7 @@
 
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
-            switch ($input["table"]) {
+            switch ($_GET["table"]) {
                 case "users":
                     if (!empty($input["email"]) && !empty($input["password"])) {
                         $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
@@ -67,9 +67,21 @@
                     respond($data);
                     break;
 
+                case "sidebar" :
+                    $result = $conn->query("SELECT title, id FROM contents; ");
+
+                    $data = [];
+                    while ($row = $result->fetch_assoc()) {
+                        $data[] = $row;
+                    }
+                    respond($data);
+
+                    break;
+
                 default:
                     respond(["message" => "Invalid table"]);
             }
+
             break;
 
         case 'POST':

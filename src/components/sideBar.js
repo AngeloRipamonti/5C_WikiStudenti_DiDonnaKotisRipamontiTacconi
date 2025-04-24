@@ -1,13 +1,50 @@
-export function sideBarComponent(parentElement) {
+export function sideBarComponent(parentElement, pubSub) {
     let callback;
     let links;
     let title;
+   
 
+    const variable = {
+        0: `<aside class="doc__nav">
+        <ul>
+          <li class="js-btn selected">Editor</li>
+          <li class="js-btn">Approver</li>
+        </ul>
+      </aside>`,
+
+        1:  `<ul class="nav flex-column ">
+        <li class="nav-item"><a class="nav-link" href="#UML">UML/ER/Logic Model</a>
+        </li>
+    </ul>`
+
+      };
+      let index;
+
+      pubSub.subscribe("sidebar", (data)=> {
+        console.log(data);
+        variable[1] = `<ul class="nav flex-column ">${data.map(element => {
+            return  `<li class="nav-item"><a class="nav-link" href="#${element.id}">${element.title}</a>
+        </li>`
+        })}
+    </ul>`;
+      });
+     
     return {
-        build: (tit, linkList) => {
+        /*build: (tit, linkList) => {
             title = tit;
             links = linkList;
         },
+*/
+        build: (value) => {
+
+        index = value;
+
+        },
+
+        render: () => {
+            parentElement = variable[index];
+        },
+
 
         renderLogged: () => {
             let sideBar = `
@@ -55,3 +92,21 @@ export function sideBarComponent(parentElement) {
     }
     //lato build riceve come parametro che tipo sidebar e in base al tipo inizializzo attributi in modo diversi, facendo fatch ala database
 }
+
+/*
+const variable = {
+  0: "template",
+  1: "template",
+  2: "template"
+};
+let index;
+
+
+build: (value) => {
+  index = value;
+}
+
+render: () => {
+  parentElement = variable[index];
+}
+*/

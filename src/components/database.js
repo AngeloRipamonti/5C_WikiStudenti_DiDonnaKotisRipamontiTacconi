@@ -28,6 +28,16 @@ export function database(pubSub) {
             });
             return await response.json();
           },
+
+        sidebar: async function () {
+            let response = await fetch(url + `?${new URLSearchParams({ table: "sidebar" }).toString()}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+            return await response.json();  
+        }
     }
     pubSub.subscribe("loginComplete", async (data)=>{
         let response = await databaseDict.login(data.email, data.password);
@@ -39,6 +49,8 @@ export function database(pubSub) {
         let response = await databaseDict.register(data.email, data.password, data.name, data.dateOfBirth, data.class, data.role);
         pubSub.publish("registerComplete", response);   
     })
+
+
     return databaseDict;
     
 }
