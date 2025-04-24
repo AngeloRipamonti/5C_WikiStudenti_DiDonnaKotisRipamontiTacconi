@@ -1,4 +1,7 @@
 <?php
+    error_reporting(0);
+    ini_set('display_errors', 0);
+
     require_once 'mailService.php';
     $config = json_decode(file_get_contents(__DIR__ . '/config.json'), true);
 
@@ -75,22 +78,25 @@
                     }
                     respond($data);
                     break;
-                
+
                 case "searchbar" :
-                    if (!isset($_GET['value'])) {
-                        $stmt = $conn->prepare("SELECT * FROM contents WHERE LOWER(title) LIKE LOWER(?)");
-                        $searchTerm = "%" . $_GET['value'] . "%";
-                        $stmt->bind_param("s", $searchTerm);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                
-                        $data = [];
-                        while ($row = $result->fetch_assoc()) {
-                            $data[] = $row;
+                    if (isset($_GET['value'])) {
+                        try {
+                            $stmt = $conn->prepare("SELECT * FROM contents WHERE LOWER(title) LIKE LOWER(?)");
+                            $searchTerm = "%" . $_GET['value'] . "%";
+                            $stmt->bind_param("s", $searchTerm);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            $data = [];
+                            while ($row = $result->fetch_assoc()) {
+                                $data[] = $row;
+                            }
+                            respond($data);
+                        } catch (Exception $e) {
+                            respond(["message" => "Exception: " . $e->getMessage()]);
                         }
-                        respond($data);
                     } else {
-                        respond(["error" => "Missing search value"]);
+                        respond(["message" => "Missing search value"]);
                     }
                     break;
                 default:

@@ -1,7 +1,6 @@
-export const searchBarComponent = (parentElement, PubSub) => {
+export const searchBarComponent = (parentElement, pubSub) => {
     return {
-        render: () => {
-            return new Promise((resolve, reject) => {
+        render: async () => {
                 try {
                     const html = `
                         <label for="table-search" class="sr-only">Search</label>
@@ -16,14 +15,13 @@ export const searchBarComponent = (parentElement, PubSub) => {
                         const value = document.getElementById("table-search").value.trim();
                         if (!value) return;
 
-                        PubSub.publish("search", value);
+                        pubSub.publish("search", value);
                     };
 
-                    resolve(html);
+                    return (html);
                 } catch (e) {
-                    reject(e);
+                    throw (e);
                 }
-            });
         }
     };
 };

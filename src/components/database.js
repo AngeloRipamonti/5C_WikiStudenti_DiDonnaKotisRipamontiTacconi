@@ -37,6 +37,16 @@ export function database(pubSub) {
                 },
             });
             return await response.json();  
+        },
+
+        searchbar: async function (value) {
+            let response = await fetch(url + `?${new URLSearchParams({ table: "searchbar", value: value }).toString()}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+            return await response.json();
         }
     }
     pubSub.subscribe("loginComplete", async (data)=>{
@@ -49,6 +59,13 @@ export function database(pubSub) {
         let response = await databaseDict.register(data.email, data.password, data.name, data.dateOfBirth, data.class, data.role);
         pubSub.publish("registerComplete", response);   
     })
+    pubSub.subscribe("search", async (data)=>{
+        //Controlli data
+        let response = await databaseDict.searchbar(data);
+        console.log(response);
+       pubSub.publish("searchbarCompete", response);
+    })
+
 
 
     return databaseDict;

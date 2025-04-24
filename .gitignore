@@ -132,7 +132,7 @@ dist
 # Custom
 .DS_Store
 .idea
-config.json
+src/service/config.json
 
 
 .vscode
