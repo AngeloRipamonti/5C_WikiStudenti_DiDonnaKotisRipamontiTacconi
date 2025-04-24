@@ -29,15 +29,15 @@
         case 'GET':
             switch ($_GET["table"]) {
                 case "users":
-                    if (!empty($input["email"]) && !empty($input["password"])) {
+                    if (!empty($_GET["email"]) && !empty($_GET["password"])) {
                         $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-                        $stmt->bind_param("s", $input["email"]);
+                        $stmt->bind_param("s", $_GET["email"]);
                         $stmt->execute();
                         $result = $stmt->get_result();
 
                         if ($result->num_rows === 1) {
                             $user = $result->fetch_assoc();
-                            if (password_verify($input["password"], $user["password"])) {
+                            if (password_verify($_GET["password"], $user["password"])) {
                                 respond($user);
                             } else {
                                 respond(["error" => "Invalid credentials"]);
@@ -51,9 +51,9 @@
                     break;
 
                 case "content":
-                    if (!empty($input["version"]) && !empty($input["id"])) {
+                    if (!empty($_GET["version"]) && !empty($_GET["id"])) {
                         $stmt = $conn->prepare("SELECT DISTINCT * FROM contents c JOIN versions v ON c.id = v.content_id WHERE c.id = ? AND v.version = ?");
-                        $stmt->bind_param("ii", $input["id"], $input["version"]);
+                        $stmt->bind_param("ii", $_GET["id"], $_GET["version"]);
                         $stmt->execute();
                         $result = $stmt->get_result();
                     } else {
@@ -69,19 +69,33 @@
 
                 case "sidebar" :
                     $result = $conn->query("SELECT title, id FROM contents; ");
-
                     $data = [];
                     while ($row = $result->fetch_assoc()) {
                         $data[] = $row;
                     }
                     respond($data);
-
                     break;
-
+                
+                case "searchbar" :
+                    if (!isset($_GET['value'])) {
+                        $stmt = $conn->prepare("SELECT * FROM contents WHERE LOWER(title) LIKE LOWER(?)");
+                        $searchTerm = "%" . $_GET['value'] . "%";
+                        $stmt->bind_param("s", $searchTerm);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                
+                        $data = [];
+                        while ($row = $result->fetch_assoc()) {
+                            $data[] = $row;
+                        }
+                        respond($data);
+                    } else {
+                        respond(["error" => "Missing search value"]);
+                    }
+                    break;
                 default:
                     respond(["message" => "Invalid table"]);
             }
-
             break;
 
         case 'POST':
