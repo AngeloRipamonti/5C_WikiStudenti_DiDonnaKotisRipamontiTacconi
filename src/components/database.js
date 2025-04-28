@@ -51,7 +51,9 @@ export function database(pubSub) {
     }
     pubSub.subscribe("loginComplete", async (data)=>{
         let response = await databaseDict.login(data.email, data.password);
-        pubSub.publish("loginComplete", response);  
+        console.log("dentro")
+        console.log(response);
+        pubSub.publish("loginVerified", response);  
     })
     pubSub.subscribe("register", async (data)=>{
         //Controlli data
