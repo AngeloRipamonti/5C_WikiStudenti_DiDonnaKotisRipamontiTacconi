@@ -7,7 +7,7 @@ Array.prototype.shuffle = function () {
 }
 export function content(parentElement, pubSub){
     const template = `<a href="#$ID">
-                        <div class="feature__item wiki-page" id="$ID">
+                        <div class="feature__item" id="$ID">
                             <h3 class="section__title">$TITLE</h3>
                             <p>$ABSTRACT</p>
                         </div>
