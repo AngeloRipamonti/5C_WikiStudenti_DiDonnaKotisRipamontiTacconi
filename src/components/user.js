@@ -1,4 +1,4 @@
-export function user(pubSub) {
+export function user(parentElement, data, pubSub) {
 
     //in base al ruolo ha determinati metodi
     let role;
@@ -35,7 +35,14 @@ export function user(pubSub) {
             
         },
         renderAccount: function(){
-            
+            parentElement.innerHTML = `Dati:
+            <ul>
+                <li>Nome </li>
+                <li>Anno di Nascita</li>
+                <li>Email</li>
+                <li>Password</li>
+                <li>Classe</li>
+            </ul>`
         }
     }
 }

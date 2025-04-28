@@ -71,6 +71,8 @@ export const generateLoginComponent = (parentElement, pubSub) => {
         }
         pubSub.subscribe("loginVerified", (data) => {
             document.getElementById("result").innerText = data;
+            const utente = user(parentElement, data, pubSub);
+            pubSub.publish("userCreate", utente)
         })
 
 

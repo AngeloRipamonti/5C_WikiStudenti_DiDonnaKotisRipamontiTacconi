@@ -17,6 +17,7 @@ const search = searchBarComponent(document.querySelector("#search-bar"),pubsub);
 const credential =  generateLoginComponent(document.querySelector("#modalbody"), pubsub);
 const homeContent = content(document.getElementById("pages"), pubsub);
 const sidebarComponent  = sideBarComponent(document.getElementById("nav-bar"), pubsub);
+let users = [];
 
 // Build
 homeContent.build([
@@ -38,7 +39,10 @@ homeContent.homePage();
 
 
 pubsub.publish("sidebar", await db.sidebar());
-
+pubsub.subscribe("userCreate", (user)=>{
+    users.push(user);
+    user.renderAccount();
+})
 //console.log(db)
 //console.log(document.querySelector("#search-bar"));
 //console.log(document.querySelector("body"));
