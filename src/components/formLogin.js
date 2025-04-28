@@ -51,6 +51,7 @@ export const generateLoginComponent = (parentElement, pubSub) => {
             </div>
             <p>Non hai un account? <button type="button" id="registerA">Registrati</button></p>
       </div>
+      <div id="result"></div>
       <div class="modal-footer">
             <button type="button" id="closeModalClient" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="button" id="loginButton" class="btn btn-primary">Login</button>
@@ -68,6 +69,9 @@ export const generateLoginComponent = (parentElement, pubSub) => {
             document.querySelector("#ModalLabel").innerHTML = "Register";
 
         }
+        pubSub.subscribe("loginVerified", (data) => {
+            document.getElementById("result").innerText = data;
+        })
 
 
 console.log(parentElement)
@@ -77,12 +81,15 @@ console.log(parentElement)
                 document.querySelector("#ModalLabel").innerHTML = "Registrati";
 
             }
+            document.getElementById("loginButton").onclick = () => {
             let usernameInput = document.getElementById("usernameInput");
             let passwordInput = document.getElementById("passwordInput");
             pubSub.publish("loginComplete",{
                 email:usernameInput.value,
                 password:passwordInput.value
             });
+            document.getElementById("closeModalClient").click();
+        }
 /*
             document.getElementById("loginButton").onclick = () => {
                 const username = document.getElementById("usernameInput").value;

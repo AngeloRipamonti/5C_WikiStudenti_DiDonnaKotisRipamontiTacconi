@@ -33,12 +33,13 @@
             switch ($_GET["table"]) {
                 case "users":
                     if (!empty($_GET["email"]) && !empty($_GET["password"])) {
+                        //echo $_GET["email"]." " . $_GET["password"];
                         $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
                         $stmt->bind_param("s", $_GET["email"]);
                         $stmt->execute();
                         $result = $stmt->get_result();
 
-                        if ($result->num_rows === 1) {
+                        if ($result->num_rows > 0) {
                             $user = $result->fetch_assoc();
                             if (password_verify($_GET["password"], $user["password"])) {
                                 respond($user);
