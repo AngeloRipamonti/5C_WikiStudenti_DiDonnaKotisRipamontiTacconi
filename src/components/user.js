@@ -35,13 +35,14 @@ export function user(parentElement, data, pubSub) {
             
         },
         renderAccount: function(){
+            console.log(parentElement)
             parentElement.innerHTML = `Dati:
             <ul>
-                <li>Nome </li>
-                <li>Anno di Nascita</li>
-                <li>Email</li>
-                <li>Password</li>
-                <li>Classe</li>
+                <li><span>Nome <input type="text" value="${data.name}" disabled></span></li>
+                <li><span>Anno di Nascita <input type="date" value="${data.birth_date}" disabled></span></li>
+                <li><span>Email <input type="email" value="${data.email}" disabled></span></li>
+                <li><span>Password <input type="password" value="${data.password}" disabled></span></li>
+                <li><span>Classe <input type="text" value="${data.class}" disabled></span></li>
             </ul>`
         }
     }

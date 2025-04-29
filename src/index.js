@@ -7,6 +7,7 @@ import { createNavigator } from "./components/navigator.js";
 import {pubSub} from "./components/pubsub.js";
 import { content } from "./components/content.js";
 import {sideBarComponent} from"./components/sideBar.js";
+import { user } from "./components/user.js"
 
 // Variabili
 const pubsub = pubSub();
@@ -17,7 +18,7 @@ const search = searchBarComponent(document.querySelector("#search-bar"),pubsub);
 const credential =  generateLoginComponent(document.querySelector("#modalbody"), pubsub);
 const homeContent = content(document.getElementById("pages"), pubsub);
 const sidebarComponent  = sideBarComponent(document.getElementById("nav-bar"), pubsub);
-let users = [];
+let utente;
 
 // Build
 homeContent.build([
@@ -39,10 +40,13 @@ homeContent.homePage();
 
 
 pubsub.publish("sidebar", await db.sidebar());
-pubsub.subscribe("userCreate", (user)=>{
-    users.push(user);
-    user.renderAccount();
+pubsub.subscribe("loginVerified", (userData)=>{
+    console.log(document.getElementById("user"))
+    utente = user(document.getElementById("user"), userData, pubsub);
+    utente.renderAccount();
+    location.href="#user";
 })
+
 //console.log(db)
 //console.log(document.querySelector("#search-bar"));
 //console.log(document.querySelector("body"));

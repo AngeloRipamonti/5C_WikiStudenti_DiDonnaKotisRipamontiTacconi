@@ -62,17 +62,15 @@ export const generateLoginComponent = (parentElement, pubSub) => {
            document.querySelector("#ModalLabel").innerHTML = "Login";
 
            document.querySelector("#closeModalClient").onclick = () => {
-            let loginBody = document.querySelector("#loginBody");
-            loginBody.classList.add("d-none");
-            let registerBody = document.querySelector("#registerBody");
-            registerBody.classList.remove("d-none");
-            document.querySelector("#ModalLabel").innerHTML = "Register";
+            //let loginBody = document.querySelector("#loginBody");
+            //loginBody.classList.add("d-none");
+            //let registerBody = document.querySelector("#registerBody");
+            //registerBody.classList.remove("d-none");
+            //document.querySelector("#ModalLabel").innerHTML = "Register";
 
         }
         pubSub.subscribe("loginVerified", (data) => {
-            document.getElementById("result").innerText = data;
-            const utente = user(parentElement, data, pubSub);
-            pubSub.publish("userCreate", utente)
+            document.querySelector("#closeModalClient").click();
         })
 
 
