@@ -1,4 +1,4 @@
-export function database(pubSub) {
+export function database() {
     const url = 'http://localhost:8050/src/service/api.php';
     const databaseDict = {
         register: async function (email, password, name, birth, classe, role){
@@ -47,29 +47,16 @@ export function database(pubSub) {
                 },
             });
             return await response.json();
+        },
+        content6rand: async function(){
+            let response = await fetch(url + `?${new URLSearchParams({table: "homeDefault"}).toString()}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            return await response.json();
         }
     }
-    pubSub.subscribe("loginComplete", async (data)=>{
-        let response = await databaseDict.login(data.email, data.password);
-        console.log("dentro")
-        console.log(response);
-        pubSub.publish("loginVerified", response);  
-    })
-    pubSub.subscribe("register", async (data)=>{
-        //Controlli data
-        console.log("dwfj")
-        let response = await databaseDict.register(data.email, data.password, data.name, data.dateOfBirth, data.class, data.role);
-        pubSub.publish("registerComplete", response);   
-    })
-    pubSub.subscribe("search", async (data)=>{
-        //Controlli data
-        let response = await databaseDict.searchbar(data);
-        console.log(response);
-       pubSub.publish("searchbarCompete", response);
-    })
-
-
-
     return databaseDict;
-    
 }

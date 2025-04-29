@@ -75,7 +75,7 @@
                 <a href="index.html" class="button--primary">Documentation</a>
             </div>
         </div>
-        <div id="user" class="wiki-page d-none"></div>
+        <div id="user" class="wiki-page d-none"></div>c
         <div id="login" class="d-none"></div>
     </div>
 

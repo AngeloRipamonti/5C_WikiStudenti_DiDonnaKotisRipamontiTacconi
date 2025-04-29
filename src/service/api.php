@@ -100,6 +100,16 @@
                         respond(["message" => "Missing search value"]);
                     }
                     break;
+
+                case "homeDefault":
+                    $result = $conn->query("SELECT * FROM contents ORDER BY RAND() LIMIT 6;");
+                    $data = [];
+                    while ($row = $result->fetch_assoc()) {
+                        $data[] = $row;
+                    }
+                    respond($data);
+                    break;
+
                 default:
                     respond(["message" => "Invalid table"]);
             }

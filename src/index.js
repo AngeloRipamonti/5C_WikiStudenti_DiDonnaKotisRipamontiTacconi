@@ -11,7 +11,7 @@ import { user } from "./components/user.js"
 
 // Variabili
 const pubsub = pubSub();
-const db = database(pubsub);
+const db = database();
 const navigator = createNavigator(document.querySelector("#pages"));
 const navbar = navBarComponent(document.getElementById("nav-bar"));
 const search = searchBarComponent(document.querySelector("#search-bar"),pubsub);
@@ -21,15 +21,7 @@ const sidebarComponent  = sideBarComponent(document.getElementById("nav-bar"), p
 let utente;
 
 // Build
-homeContent.build([
-    {id: 1, title: "Database", description: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
-    {id: 1, title: "Relazioni", description: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
-    {id: 1, title: "Associazioni", description: "cccccccccccccccccccccccccccccccccccccccccccccccccc"},
-    {id: 1, title: "Entità", description: "ddddddddddddddddddddddddddddddddddddddddd"},
-    {id: 1, title: "SQL", description: "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"},
-    {id: 1, title: "Algebra", description: "ffffffffffffffffffffffffffffffffffff"},
-    {id: 1, title: "PHP", description: "dddddddddddddddddddddddddddddddddd"}
-]); 
+homeContent.build(await db.content6rand());
 
 // Render
 search.render();
@@ -37,14 +29,21 @@ navbar.render(true);
 credential.renderFormLogin();
 homeContent.homePage();
 
-
-
+// PubSub
 pubsub.publish("sidebar", await db.sidebar());
-pubsub.subscribe("loginVerified", (userData)=>{
-    console.log(document.getElementById("user"))
-    utente = user(document.getElementById("user"), userData, pubsub);
+pubsub.subscribe("loginComplete", async (data)=>{
+    let response = await db.login(data.email, data.password);
+    utente = user(document.getElementById("user"), response, pubsub);
     utente.renderAccount();
     location.href="#user";
+})
+pubsub.subscribe("register", async (data)=>{
+    let response = await db.register(data.email, data.password, data.name, data.dateOfBirth, data.class, data.role);
+    pubsub.publish("registerComplete", response);
+})
+pubsub.subscribe("search", async (data)=>{
+    let response = await db.searchbar(data);
+    pubsub.publish("searchbarCompete", response);
 })
 
 //console.log(db)

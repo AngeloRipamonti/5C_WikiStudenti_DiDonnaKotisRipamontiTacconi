@@ -23,7 +23,6 @@ export function content(parentElement, pubSub){
         },
         homePage: function () {
             let html = "";
-            data.shuffle();
             const end = data.length > 6 ? 6 : data.length;
             for(let i = 0; i < end; i++){
                 html += render(data[i].id, data[i].title, data[i].description);
