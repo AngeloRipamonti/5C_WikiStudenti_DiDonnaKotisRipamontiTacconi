@@ -57,6 +57,10 @@
 
     <div class="wrapper">
         <div id="home" class="wiki-page">
+          <aside id = "sidebar">
+
+          </aside>
+
             <div class="installation">
                 <div class="tab__container">
                     <div class="search-bar" id="search-bar">
@@ -75,7 +79,10 @@
                 <a href="index.html" class="button--primary">Documentation</a>
             </div>
         </div>
-        <div id="user" class="wiki-page d-none"></div>c
+        <div id="user" class="wiki-page d-none">
+          <div id="userPage"></div>
+          <aside id="sidebarAccount"></aside>
+        </div>
         <div id="login" class="d-none"></div>
     </div>
 

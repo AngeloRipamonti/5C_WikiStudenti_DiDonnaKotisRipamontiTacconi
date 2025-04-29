@@ -17,7 +17,7 @@ const navbar = navBarComponent(document.getElementById("nav-bar"));
 const search = searchBarComponent(document.querySelector("#search-bar"),pubsub);
 const credential =  generateLoginComponent(document.querySelector("#modalbody"), pubsub);
 const homeContent = content(document.getElementById("pages"), pubsub);
-const sidebarComponent  = sideBarComponent(document.getElementById("nav-bar"), pubsub);
+const accountSidebar  = sideBarComponent("sidebarAccount", pubsub);
 let utente;
 
 // Build
@@ -32,9 +32,11 @@ homeContent.homePage();
 // PubSub
 pubsub.publish("sidebar", await db.sidebar());
 pubsub.subscribe("loginComplete", async (data)=>{
+    
     let response = await db.login(data.email, data.password);
-    utente = user(document.getElementById("user"), response, pubsub);
+    utente = user(document.getElementById("userPage"), response, pubsub);
     utente.renderAccount();
+    accountSidebar.render();
     location.href="#user";
 })
 pubsub.subscribe("register", async (data)=>{

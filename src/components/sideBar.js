@@ -1,9 +1,6 @@
-export function sideBarComponent(parentElement, pubSub) {
-    let callback;
-    let links;
-    let title;
-   
-
+export function sideBarComponent(idParentElement, pubSub) {
+    const parentElement = document.getElementById(idParentElement);
+    let index = idParentElement == "sidebarAccount" ? 0 : 1;
     const variable = {
         0: `<aside class="doc__nav">
         <ul>
@@ -12,101 +9,45 @@ export function sideBarComponent(parentElement, pubSub) {
         </ul>
       </aside>`,
 
-        1:  `<ul class="nav flex-column ">
+        1: `<ul class="nav flex-column ">
         <li class="nav-item"><a class="nav-link" href="#UML">UML/ER/Logic Model</a>
         </li>
     </ul>`
 
-      };
-      let index;
+    };
 
-      pubSub.subscribe("sidebar", (data)=> {
-        console.log(data);
-        variable[1] = `<ul class="nav flex-column ">${data.map(element => {
-            return  `<li class="nav-item"><a class="nav-link" href="#${element.id}">${element.title}</a>
-        </li>`
-        })}
-    </ul>`;
-      });
-     
-    return {
-        /*build: (tit, linkList) => {
-            title = tit;
-            links = linkList;
-        },
-*/
-        build: (value) => {
-
-        index = value;
-
-        },
-
-        render: () => {
-            parentElement = variable[index];
-        },
-
-
-        renderLogged: () => {
-            let sideBar = `
-                <div class = "sidebar" style = "width: 250px; height: 100vh; background-color: #f0f0f0; padding: 16px; position: fixed" >
-                <h2 class="sidebar-title" style="color: #333; font-size: 24px; font-weight: bold;">${title}</h2>
-                    <div class="sidebar-links" style="margin-top: 20px;">
-                        ${links.map(link => `
-                            <a href="#" class="sidebar-link" style="display: block; color: #333; margin: 8px 0; text-decoration: none; font-size: 18px;" onclick="event.preventDefault(); handleLink('${link.id}')">
-                                ${link.text}
-                            </a>
-                        `).join('')}
-                    </div>
-                </div>
-                `;
-        },
-
-        editor: () => {
-
-        },
-
-        render: () => {
-            if (!title || !links) return false;
-
-            let newSidebar = `
-                <div class="sidebar" style="width: 250px; height: 100vh; background-color: #f0f0f0; padding: 16px; position: fixed;">
-                    <h2 class="sidebar-title" style="color: #333; font-size: 24px; font-weight: bold;">${title}</h2>
-                    <div class="sidebar-links" style="margin-top: 20px;">
-                        ${links.map(link => `
-                            <a href="#" class="sidebar-link" style="display: block; color: #333; margin: 8px 0; text-decoration: none; font-size: 18px;" onclick="event.preventDefault(); handleLink('${link.id}')">
-                                ${link.text}
-                            </a>
-                        `).join('')}
-                    </div>
-                </div>`;
-
-            parentElement.innerHTML = newSidebar;
-
-            window.handleLink = (linkId) => {
-                callback(linkId);
-            }
-        },
-        callback(value) {
-            callback = value;
+    // Definisci la funzione di rendering - QUESTA è l'UNICA funzione render
+    const render = () => {
+        // Controlla se esiste un template per l'indice corrente
+        if (variable[index]) {
+            // Imposta l'innerHTML dell'elemento DOM reale passato alla funzione
+            parentElement.innerHTML = variable[index];
+        } else {
+            console.error("Template sidebar non trovato per indice:", index);
+            // Opzionale: svuota la sidebar o mostra un messaggio di errore
+            parentElement.innerHTML = "Errore caricamento sidebar.";
         }
-    }
-    //lato build riceve come parametro che tipo sidebar e in base al tipo inizializzo attributi in modo diversi, facendo fatch ala database
+        // Rimuovi handleLink se non è usato dal template variable[index]
+    };
+
+    // Iscriviti agli aggiornamenti della sidebar tramite Pub/Sub
+    pubSub.subscribe("sidebar", (data) => {
+        console.log(data);
+        // Aggiorna il template variable[1] con i nuovi link ricevuti
+        if (Array.isArray(data)) {
+            variable[1] = `<ul class="nav flex-column ">${data.map(element => {
+                // Assumiamo che ogni elemento abbia id e title
+                return `<li class="nav-item"><a class="nav-link" href="#${element.id}">${element.title}</a></li>`;
+            }).join('')}</ul>`; // Usa join('') per unire gli elementi dell'array in una stringa singola
+            // **TRIGGERA IL RENDERING** per mostrare i nuovi dati
+            render();
+        } else {
+            console.error("Dati non validi ricevuti per sidebar:", data);
+            // Gestisci l'errore
+        }
+    });
+
+    return {
+        render: render,
+    };
 }
-
-/*
-const variable = {
-  0: "template",
-  1: "template",
-  2: "template"
-};
-let index;
-
-
-build: (value) => {
-  index = value;
-}
-
-render: () => {
-  parentElement = variable[index];
-}
-*/
