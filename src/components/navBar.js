@@ -17,7 +17,7 @@ export function navBarComponent(parentElement) {
                             <li class="menu__item"><button data-bs-toggle="modal" data-bs-target="#exampleModal" class="link link--dark"><i class="fa fa-user"></i></button></li>
                           </ul>
                           <div class="nav" id="nav">
-                <h1 class="hero__title">Home</h1>
+                <h1 class="hero__title"><a href="#home" class="text-decoration-none text-body">Home</a></h1>
                     </div>
                       </nav>`;
 

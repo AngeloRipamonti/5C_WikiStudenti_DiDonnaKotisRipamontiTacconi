@@ -3,13 +3,13 @@ export function sideBarComponent(idParentElement, pubSub) {
     let index = idParentElement == "sidebarAccount" ? 0 : 1;
     const variable = {
         0: `<aside class="doc__nav">
-        <ul>
+        <ul class="list-unstyled">
           <li class="js-btn selected">Editor</li>
           <li class="js-btn">Approver</li>
         </ul>
       </aside>`,
 
-        1: `<ul class="nav flex-column ">
+        1: `<ul class="nav flex-column list-unstyled">
         <li class="nav-item"><a class="nav-link" href="#UML">UML/ER/Logic Model</a>
         </li>
     </ul>`
@@ -28,7 +28,7 @@ export function sideBarComponent(idParentElement, pubSub) {
     pubSub.subscribe("sidebar", (data) => {
         console.log(data);
         if (Array.isArray(data)) {
-            variable[1] = `<ul class="nav flex-column ">${data.map(element => {
+            variable[1] = `<ul class="nav flex-column list-unstyled">${data.map(element => {
                 return `<li class="nav-item"><a class="nav-link" href="#${element.id}">${element.title}</a></li>`;
             }).join('')}</ul>`;
             render();
