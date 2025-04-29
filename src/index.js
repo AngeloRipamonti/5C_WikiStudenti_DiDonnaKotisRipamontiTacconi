@@ -47,6 +47,7 @@ pubsub.subscribe("search", async (data)=>{
     let response = await db.searchbar(data);
     homeContent.filter(response);
 })
+pubsub.subscribe("searchFailed", ()=> homeContent.homePage());
 
 //console.log(db)
 //console.log(document.querySelector("#search-bar"));

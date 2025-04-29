@@ -10,7 +10,11 @@ export const searchBarComponent = (parentElement, pubSub) => {
 
                     document.getElementById("search-table").onclick = () => {
                         const value = document.getElementById("table-search").value.trim();
-                        if (!value) return;
+                        document.getElementById("table-search").value = "";
+                        if (!value) {
+                            pubSub.publish("searchFailed");
+                            return;
+                        }
 
                         pubSub.publish("search", value);
                     };
