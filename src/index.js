@@ -45,7 +45,7 @@ pubsub.subscribe("register", async (data)=>{
 })
 pubsub.subscribe("search", async (data)=>{
     let response = await db.searchbar(data);
-    pubsub.publish("searchbarCompete", response);
+    homeContent.filter(response);
 })
 
 //console.log(db)

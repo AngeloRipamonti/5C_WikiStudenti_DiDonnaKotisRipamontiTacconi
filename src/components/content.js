@@ -6,12 +6,14 @@ Array.prototype.shuffle = function () {
     return this;
 }
 export function content(parentElement, pubSub){
-    const template = `<a href="#$ID">
-                        <div class="feature__item" id="$ID">
-                            <h3 class="section__title">$TITLE</h3>
-                            <p>$ABSTRACT</p>
-                        </div>
-                      </a>`
+    const template = `<div class="col-12 col-md-4">
+                                <a href="#$ID">
+                                    <div class="feature__item" id="$ID">
+                                        <h3 class="section__title">$TITLE</h3>
+                                        <p>$ABSTRACT</p>
+                                    </div>
+                                </a>
+                            </div>`
     let data = [];
     function render(id, title, abstract){
         return template.replaceAll("$ID", id).replace("$TITLE", title).replace("$ABSTRACT", abstract);
@@ -26,6 +28,13 @@ export function content(parentElement, pubSub){
             const end = data.length > 6 ? 6 : data.length;
             for(let i = 0; i < end; i++){
                 html += render(data[i].id, data[i].title, data[i].description);
+            }
+            parentElement.innerHTML = html;
+        },
+        filter: function (filter) {
+            let html = "";
+            for(let i = 0; i < filter.length; i++){
+                html += render(filter[i].id, filter[i].title, filter[i].description);
             }
             parentElement.innerHTML = html;
         }

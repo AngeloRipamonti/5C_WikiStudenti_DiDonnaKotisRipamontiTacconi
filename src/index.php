@@ -60,11 +60,12 @@
               </aside>
 
                 <div class="installation">
+                    <div class="search-bar mt-3" id="search-bar">                        </div>
+
                     <div class="tab__container">
-                        <div class="search-bar" id="search-bar">
+
                             <!--<input type="text" placeholder="Search...">
                             <button>Search</button>-->
-                        </div>
                         <!--Aggiungere qua search-->
 
                     </div>
@@ -72,7 +73,7 @@
                 <div class="feature" id="pages">
 
                 </div>
-                <div class="callout">
+                <div class="callout mb-5">
                     <p>Read our documentation for advanced keybindings and customization</p>
                     <a href="index.html" class="button--primary">Documentation</a>
                 </div>

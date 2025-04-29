@@ -9,17 +9,25 @@ export function navBarComponent(parentElement) {
         render: (isLogged) => {
            /////// if (!title || !buttons) return false;
 
-            let newNavBar = `<nav>
-                          <div class="logo">Proggetto Wiki</div>
-                          <ul class="menu">
-                            <div class="menu__item toggle"><span></span></div>
-                            <li class="menu__item"><a href="/src/pages/doc.php" class="link link--dark"><i class="fa fa-book"></i> Documentation</a></li>
-                            <li class="menu__item"><button data-bs-toggle="modal" data-bs-target="#exampleModal" class="link link--dark"><i class="fa fa-user"></i></button></li>
-                          </ul>
-                          <div class="nav" id="nav">
-                <h1 class="hero__title"><a href="#home" class="text-decoration-none text-body">Home</a></h1>
-                    </div>
-                      </nav>`;
+            let newNavBar = `<nav class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+                                      <div class="d-flex align-items-center">
+                                        <div class="logo me-2"></div>
+                                        <a href="#home" class="text-decoration-none fw-bold text-dark fs-5">Progetto Wiki</a>
+                                      </div>
+                                    
+                                      <ul class="d-flex list-unstyled mb-0">
+                                        <li class="me-5">
+                                          <a href="#docs" class="link-dark text-decoration-none">
+                                            <i class="fa fa-book"></i> Documentation
+                                          </a>
+                                        </li>
+                                        <li class="me-3">
+                                          <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-link link-dark p-0">
+                                            <i class="fa fa-user"></i>
+                                          </button>
+                                        </li>
+                                      </ul>
+                                    </nav>`;
 
             parentElement.innerHTML = newNavBar;
 
