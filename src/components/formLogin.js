@@ -43,32 +43,25 @@ export const generateLoginComponent = (parentElement, pubSub) => {
         renderFormLogin: function ()  {
 
             let html = `
-           <div>
-      <input type="text" id="usernameInput" placeholder="Email">
+            <div>
+                <input type="text" id="usernameInput" placeholder="Email">
             </div>
             <div>
                 <input type="password" id="passwordInput" placeholder="Password">
             </div>
-            <p>Non hai un account? <button type="button" id="registerA">Registrati</button></p>
-      </div>
-      <div id="result"></div>
-      <div class="modal-footer">
-            <button type="button" id="closeModalClient" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" id="loginButton" class="btn btn-primary">Login</button>
-          </div>
+            <p>Non hai un account? <a type="button" id="registerA" href='#'>Registrati</a></p>
+            <div id="result"></div>
+            <div class="modal-footer">
+                <button type="button" id="closeModalClient" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="loginButton" class="btn btn-primary">Login</button>
+            </div>
         `;
+        parentElement.innerHTML = html;
+        document.querySelector("#ModalLabel").innerHTML = "Login";
 
-           parentElement.innerHTML = html;
-           document.querySelector("#ModalLabel").innerHTML = "Login";
-
-           document.querySelector("#closeModalClient").onclick = () => {
-            //let loginBody = document.querySelector("#loginBody");
-            //loginBody.classList.add("d-none");
-            //let registerBody = document.querySelector("#registerBody");
-            //registerBody.classList.remove("d-none");
-            //document.querySelector("#ModalLabel").innerHTML = "Register";
-
-        }
+        document.querySelector("#registerA").onclick = () => {
+            this.renderFormRegister();
+        };
         pubSub.subscribe("loginVerified", (data) => {
             document.querySelector("#closeModalClient").click();
         })
@@ -127,23 +120,34 @@ console.log(parentElement)
             let html = `
                 <div class="input-container">
                     <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="Email">
+                    <input type="email" id="email" placeholder="Email" required>
                 </div>
                 <div class="input-container">
                     <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Password">
+                    <input type="password" id="password" placeholder="Password" required>
                 </div>
-                <div class="input-container">
+                <div class="input-container"> 
                     <label for="name">Nome</label>
-                    <input type="text" id="name" placeholder="Nome">
+                    <input type="text" id="name" placeholder="Nome" required> 
                 </div>
                 <div class="input-container">
                     <label for="class">Classe</label>
-                    <input type="text" id="class" placeholder="Classe">
+                    <select id="class" placeholder="Classe" required>
+                        <option value="1">1</option>
+                        
+                        <option value="2">2</option>
+                        
+                        <option value="3">3</option>
+                    
+                        <option value="4">4</option>
+                        
+                        <option value="5">5</option>
+                        
+                    </select>
                 </div>
                 <div class="input-container">
                     <label for="date">Data di nascita</label>
-                    <input type="date" id="dateOfBirth" placeholder="Data di nascita">
+                    <input type="date" id="dateOfBirth" placeholder="Data di nascita" required>
                 </div>
                 <div class="input-container">
                     <label>Register as:</label>
@@ -162,14 +166,10 @@ console.log(parentElement)
           </div>`;
             parentElement.innerHTML = html;
             document.querySelector("#ModalLabel").innerHTML = "Registrati";
-            document.querySelector("#AccediA").onclick = () => {
-                let loginBody = document.querySelector("#loginBody");
-                loginBody.classList.add("d-none");
-                let registerBody = document.querySelector("#registerBody");
-                registerBody.classList.remove("d-none");
-                document.querySelector("#ModalLabel").innerHTML = "Login";
 
-            }
+            document.querySelector("#AccediA").onclick = () => {
+                this.renderFormLogin();
+            };
             document.querySelector("#closeModalClient").onclick = () => {
                 let loginBody = document.querySelector("#loginBody");
                 loginBody.classList.remove("d-none");
@@ -179,6 +179,8 @@ console.log(parentElement)
 
             }
             document.getElementById("registerButton").onclick = () => {
+                if(document.getElementById("email").value && document.getElementById("password").value && document.getElementById("name").value && document.getElementById("class").value && document.getElementById("dateOfBirth").value) {
+                
                 let data = {
                     email: document.getElementById("email").value,
                     password: document.getElementById("password").value,
@@ -188,6 +190,9 @@ console.log(parentElement)
                     role: document.getElementById("approver").checked ? "approver" : document.getElementById("editor").checked ? "editor" : "viewer"
                 }
                 pubSub.publish("register", data);
+            }else{
+                alert("Compila tutti i campi");
+            }
             }
             pubSub.subscribe("registerComplete", (data) => {
                 document.getElementById("result").innerText = data;
