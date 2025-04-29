@@ -32,7 +32,6 @@ homeContent.homePage();
 // PubSub
 pubsub.publish("sidebar", await db.sidebar());
 pubsub.subscribe("loginComplete", async (data)=>{
-    
     let response = await db.login(data.email, data.password);
     utente = user(document.getElementById("userPage"), response, pubsub);
     utente.renderAccount();
@@ -40,8 +39,12 @@ pubsub.subscribe("loginComplete", async (data)=>{
     location.href="#user";
 })
 pubsub.subscribe("register", async (data)=>{
-    let response = await db.register(data.email, data.password, data.name, data.dateOfBirth, data.class, data.role);
-    pubsub.publish("registerComplete", response);
+    let r = await db.register(data.email, data.password, data.name, data.dateOfBirth, data.class, data.role);
+    let response = await db.login(data.email, data.password);
+    utente = user(document.getElementById("userPage"), response, pubsub);
+    utente.renderAccount();
+    accountSidebar.render();
+    location.href="#user";
 })
 pubsub.subscribe("search", async (data)=>{
     let response = await db.searchbar(data);
