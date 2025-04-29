@@ -2,7 +2,7 @@ export function sideBarComponent(idParentElement, pubSub) {
     const parentElement = document.getElementById(idParentElement);
     let index = idParentElement == "sidebarAccount" ? 0 : 1;
     const variable = {
-        0: `<aside class="doc__nav">
+        0: `<aside class="doc__nav bg-light p-2 d-flex flex-column min-vh-100 col-1">
         <ul class="list-unstyled">
           <li class="js-btn selected">Editor</li>
           <li class="js-btn">Approver</li>
