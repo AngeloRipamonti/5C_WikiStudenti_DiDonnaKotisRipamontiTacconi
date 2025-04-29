@@ -79,9 +79,11 @@
                 <a href="index.html" class="button--primary">Documentation</a>
             </div>
         </div>
-        <div id="user" class="wiki-page d-none">
-          <div id="userPage"></div>
-          <aside id="sidebarAccount"></aside>
+        <div id="user" class="wiki-page container-fluid d-none">
+            <div class ="row">
+                <aside class="col-md-3 bg-light p-3" id="sidebarAccount"></aside>
+                <div class="col-md-9 p-3" id="userPage"></div>
+            </div>
         </div>
         <div id="login" class="d-none"></div>
     </div>
