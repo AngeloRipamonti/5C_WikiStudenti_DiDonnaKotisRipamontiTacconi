@@ -51,12 +51,7 @@ pubsub.subscribe("search", async (data)=>{
     homeContent.filter(response);
 })
 pubsub.subscribe("searchFailed", ()=> homeContent.homePage());
-
-//console.log(db)
-//console.log(document.querySelector("#search-bar"));
-//console.log(document.querySelector("body"));
-/*document.querySelectorAll(".wiki-page").forEach((page) => {
-    page.onclick = () => {
-        location.href = "#"+page.id
-    };
-});*/
+pubsub.subscribe("modifyAccount", async (data) => {
+   let response = await db.updateAccount(data.column, data.email, data.value);
+   pubsub.publish("confirmModifyAccount");
+});

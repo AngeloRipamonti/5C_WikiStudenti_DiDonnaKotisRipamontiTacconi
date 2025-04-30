@@ -73,15 +73,15 @@ export function user(parentElement, data, pubSub) {
                         if(inputs[i].disabled){
                             inputs[i].disabled = false;
                             btn.innerHTML = `<i class="fa fa-check"></i>`;
-                            if(inputs[i].getAttribute("column") == "password") inputs[i].value = "";
+                            if(inputs[i].getAttribute("column") === "password") inputs[i].value = "";
                         }
                         else{
                             pubSub.publish("modifyAccount", {
                                 value: inputs[i].value,
-                                table: "users",
+                                email: data.email,
                                 column: inputs[i].getAttribute("column")
                             });
-                            pubSub.subscribe("confirmModifyAccount", (data) => {
+                            pubSub.subscribe("confirmModifyAccount", () => {
                                 inputs[i].disabled = true;
                                 btn.innerHTML = `<i class="fa fa-pencil"></i>`
                             });

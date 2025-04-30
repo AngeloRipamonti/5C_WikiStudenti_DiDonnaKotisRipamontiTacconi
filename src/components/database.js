@@ -56,6 +56,21 @@ export function database() {
                 }
             });
             return await response.json();
+        },
+        updateAccount: async function (col, email, value){
+            let response = await fetch(url, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "table": "users",
+                    "column": col,
+                    "email": email,
+                    "value": value
+                })
+            });
+            return await response.json();
         }
     }
     return databaseDict;
