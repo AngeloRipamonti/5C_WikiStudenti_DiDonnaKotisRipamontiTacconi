@@ -5,7 +5,7 @@ export function sideBarComponent(idParentElement, pubSub) {
         0: `<aside class="doc__nav bg-light p-2 d-flex flex-column min-vh-100 col-1">
         <ul class="list-unstyled">
           <li class="js-btn selected">Editor</li>
-          <li class="js-btn">Approver</li>
+          <li class="js-btn"><button id="sidebarApproverBtn">Approver</button></li>
         </ul>
       </aside>`,
 
@@ -19,6 +19,9 @@ export function sideBarComponent(idParentElement, pubSub) {
     const render = () => {
         if (variable[index]) {
             parentElement.innerHTML = variable[index];
+            if(index===0){
+                document.getElementById("sidebarApproverBtn").onclick = () => pubSub.publish("sidebarApproverBtn");
+            }
         } else {
             console.error("Template sidebar non trovato per indice:", index);
             parentElement.innerHTML = "Errore caricamento sidebar.";

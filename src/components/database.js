@@ -71,7 +71,36 @@ export function database() {
                 })
             });
             return await response.json();
-        }
+        },
+        approverContent: async function(){
+            let response = await fetch(url + `?${new URLSearchParams({table: "approverContent"}).toString()}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            return await response.json();
+        },
+        getVersions: async function(contentID){
+            let response = await fetch(url + `?${new URLSearchParams({table: "versions", id: contentID}).toString()}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            console.log(response)
+            return await response.json();
+        },
+        getVersion: async function(contentID, vers){
+            let response = await fetch(url + `?${new URLSearchParams({table: "content", id: contentID, version: vers}).toString()}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            console.log(response)
+            return await response.json();
+        },
     }
     return databaseDict;
 }

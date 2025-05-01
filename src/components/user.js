@@ -1,39 +1,76 @@
 export function user(parentElement, data, pubSub) {
 
-    //in base al ruolo ha determinati metodi
-    let role;
-    
-    return{
-        getRole: function(){
+    return {
+        renderApprover: function () {
+            pubSub.publish("approverContent");
+            pubSub.subscribe("confirmApproverContent", async (data) => {
+                parentElement.innerHTML = `
+                <div class="container text-center my-4">
+                    <h2 class="mb-4">contenuti da approvare</h2>
+                    <div class="row justify-content-start">
+                        <div class="col-2 d-flex flex-column align-items-start">
+                        ${data.map(e => {
+                    return `<button class="contentButton btn btn-outline-primary mb-2" id="approverContent_${e.id}">${e.title}</button>`;
+                }).join("")}
+                        </div>
+                    </div>
+                </div>
+            `;
+            //Visualizzazione versioni
+            const buttons = Array.from(document.querySelectorAll("button")).filter(btn => btn.id.startsWith("approverContent_"));                
+                buttons.forEach(btn => {
+                    btn.onclick = () => {
+                        const contentId = btn.id.split("_")[1];
+                        const contentName = btn.innerText;
 
+                        pubSub.publish("loadVersions", contentId );
+
+                        pubSub.subscribe("confirmVersions", versions => {
+                            parentElement.innerHTML = `
+                        <div class="container text-center my-4">
+                            <h2 class="mb-4">seleziona la versione per <strong>${contentName}</strong>:</h2>
+                            <div class="row justify-content-center">
+                                <div class="col-auto d-flex flex-column align-items-end">
+                                    ${versions.map(v => `
+                                        <div class="d-flex align-items-center mb-2">
+                                            <button class="btn btn-outline-primary me-2" id="approverVersionContent_${v.version}">${v.version}</button>
+                                            <span>visualizza</span>
+                                        </div>
+                                    `).join("")}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    Array.from(parentElement.querySelectorAll("button"))
+                        .filter(btn => btn.id.startsWith("approverVersionContent_"))
+                        .forEach(verBtn => {
+                                verBtn.onclick = () => {
+                                    const selectedVersion = btn.id.split("_")[1];
+                                    pubSub.publish("loadVersionDetail", {
+                                        id: contentId,
+                                        version: selectedVersion
+                                    });
+                                    pubSub.subscribe("confirmVersion", ([data])  => {
+                                        parentElement.innerHTML = `
+                                        <h1>${data.title}</h1>
+                                        <h5>${data.description}</h5>
+                                        <p>${data.content}</p>
+                                        <h6>${data.author_email}</h6>
+                                        <button class="btn btn-outline-secondary me-2" id="reset_${data.version}_${data.id}">Reset</button>
+                                        <button class="btn btn-outline-success me-2" id="approve_${data.version}_${data.id}">Approve</button>
+                                        <button class="btn btn-outline-danger me-2" id="deny_${data.version}_${data.id}">Deny</button>`
+    
+                                    });
+                                };
+                            });
+                        });
+
+                    };
+                });
+
+            });
         },
-        approveVersion : function(){
-            
-        },
-        approveUser: function(){
-            
-        },
-        approveContent: function(){
-            
-        },
-        rejectVersion: function(){
-            
-        },
-        rejectUser: function(){
-            
-        },
-        rejectContent: function(){
-            
-        },
-        setUsername: function(){
-            
-        },
-        setEmail: function(){
-            
-        },
-        setPassword: function(){
-            
-        },
+
         renderAccount: function () {
             parentElement.innerHTML = `Dati:
                 <ul class="list-unstyled small" id="accountData">
@@ -67,27 +104,31 @@ export function user(parentElement, data, pubSub) {
                     </span></li>
                 </ul>`;
 
-                const inputs = document.querySelectorAll(".fieldInput");
-                document.querySelectorAll(".fieldButton").forEach((btn, i) => {
-                    btn.onclick = ()=>{
-                        if(inputs[i].disabled){
-                            inputs[i].disabled = false;
-                            btn.innerHTML = `<i class="fa fa-check"></i>`;
-                            if(inputs[i].getAttribute("column") === "password") inputs[i].value = "";
-                        }
-                        else{
-                            pubSub.publish("modifyAccount", {
-                                value: inputs[i].value,
-                                email: data.email,
-                                column: inputs[i].getAttribute("column")
-                            });
-                            pubSub.subscribe("confirmModifyAccount", () => {
-                                inputs[i].disabled = true;
-                                btn.innerHTML = `<i class="fa fa-pencil"></i>`
-                            });
-                        }
+            const inputs = document.querySelectorAll(".fieldInput");
+            document.querySelectorAll(".fieldButton").forEach((btn, i) => {
+                btn.onclick = () => {
+                    if (inputs[i].disabled) {
+                        inputs[i].disabled = false;
+                        btn.innerHTML = `<i class="fa fa-check"></i>`;
+                        if (inputs[i].getAttribute("column") === "password") inputs[i].value = "";
                     }
-                });
-        }        
+                    else {
+                        pubSub.publish("modifyAccount", {
+                            value: inputs[i].value,
+                            email: data.email,
+                            column: inputs[i].getAttribute("column")
+                        });
+                        pubSub.subscribe("confirmModifyAccount", () => {
+                            inputs[i].disabled = true;
+                            btn.innerHTML = `<i class="fa fa-pencil"></i>`
+                        });
+                    }
+                }
+            });
+
+            pubSub.subscribe("sidebarApproverBtn", ()=>{
+                if(data.role === "approver") this.renderApprover();
+            });
+        }
     }
 }

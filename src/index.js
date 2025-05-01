@@ -55,3 +55,18 @@ pubsub.subscribe("modifyAccount", async (data) => {
    let response = await db.updateAccount(data.column, data.email, data.value);
    pubsub.publish("confirmModifyAccount");
 });
+pubsub.subscribe("approverContent", async () => {
+    let response = await db.approverContent();
+    pubsub.publish("confirmApproverContent",response);
+ });
+ pubsub.subscribe("loadVersions", async (id) => {
+    let response = await db.getVersions(id);
+    pubsub.publish("confirmVersions",response);
+ });
+ pubsub.subscribe("loadVersionDetail", async (data) => {
+    let response = await db.getVersion(data.id, data.version);
+    pubsub.publish("confirmVersion",response);
+ });
+
+
+ 

@@ -34,7 +34,7 @@
                     case "users":
                         if (!empty($_GET["email"]) && !empty($_GET["password"])) {
                             //echo $_GET["email"]." " . $_GET["password"];
-                            $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+                            $stmt = $conn->prepare("SELECT DISTINCT * FROM users u JOIN roles_users ru ON u.email = ru.email WHERE u.email = ? AND ru.confirmed = 1");
                             $stmt->bind_param("s", $_GET["email"]);
                             $stmt->execute();
                             $result = $stmt->get_result();
@@ -110,7 +110,31 @@
                         respond($data);
                         break;
 
+                    case "approverContent":
+                        $result = $conn->query("SELECT * FROM contents WHERE `status`=0;");
+                        $data = [];
+                        while ($row = $result->fetch_assoc()) {
+                            $data[] = $row;
+                        }
+                        respond($data);
+                        break;
+                    case "versions":
+                        if(empty($_GET["id"])) {
+                            respond(["message" => "Invalid id"]);
+                            break;
+                        }
+                        $stmt = $conn->prepare("SELECT * FROM versions v JOIN contents c ON c.id = v.content_id WHERE c.id = ?");
+                        $stmt->bind_param("i", $_GET["id"]);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                            $data = [];
+                            while ($row = $result->fetch_assoc()) {
+                                $data[] = $row;
+                            }
+                            respond($data);
+                            break;
                     default:
+                    
                         respond(["message" => "Invalid table"]);
                 }
                 break;
@@ -134,6 +158,7 @@
 
                         break;
 
+    
                     case "content":
                         respond(["message" => "Content POST not implemented"]);
                         break;
