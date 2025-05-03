@@ -56,12 +56,12 @@
 
                     case "content":
                         if (!empty($_GET["version"]) && !empty($_GET["id"])) {
-                            $stmt = $conn->prepare("SELECT DISTINCT * FROM contents c JOIN versions v ON c.id = v.content_id WHERE c.id = ? AND v.version = ?");
+                            $stmt = $conn->prepare("SELECT DISTINCT *, v.status AS versionStatus FROM contents c JOIN versions v ON c.id = v.content_id WHERE c.id = ? AND v.version = ?");
                             $stmt->bind_param("ii", $_GET["id"], $_GET["version"]);
                             $stmt->execute();
                             $result = $stmt->get_result();
                         } else {
-                            $result = $conn->query("SELECT DISTINCT * FROM contents c JOIN versions v ON c.id = v.content_id JOIN versions_images vi ON v.version = vi.version AND c.id = vi.id JOIN images i ON i.path = vi.path");
+                            $result = $conn->query("SELECT DISTINCT *, v.status AS versionStatus FROM contents c JOIN versions v ON c.id = v.content_id JOIN versions_images vi ON v.version = vi.version AND c.id = vi.id JOIN images i ON i.path = vi.path");
                         }
 
                         $data = [];
@@ -111,7 +111,7 @@
                         break;
 
                     case "approverContent":
-                        $result = $conn->query("SELECT * FROM contents WHERE `status`=0;");
+                        $result = $conn->query("SELECT * FROM contents;");
                         $data = [];
                         while ($row = $result->fetch_assoc()) {
                             $data[] = $row;
@@ -123,7 +123,7 @@
                             respond(["message" => "Invalid id"]);
                             break;
                         }
-                        $stmt = $conn->prepare("SELECT * FROM versions v JOIN contents c ON c.id = v.content_id WHERE c.id = ?");
+                        $stmt = $conn->prepare("SELECT *, v.status AS versionStatus FROM versions v JOIN contents c ON c.id = v.content_id WHERE c.id = ?");
                         $stmt->bind_param("i", $_GET["id"]);
                         $stmt->execute();
                         $result = $stmt->get_result();

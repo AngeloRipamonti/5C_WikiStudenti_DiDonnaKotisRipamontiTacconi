@@ -16,14 +16,14 @@ export function user(parentElement, data, pubSub) {
                     </div>
                 </div>
             `;
-            //Visualizzazione versioni
-            const buttons = Array.from(document.querySelectorAll("button")).filter(btn => btn.id.startsWith("approverContent_"));                
+                //Visualizzazione versioni
+                const buttons = Array.from(document.querySelectorAll("button")).filter(btn => btn.id.startsWith("approverContent_"));
                 buttons.forEach(btn => {
                     btn.onclick = () => {
                         const contentId = btn.id.split("_")[1];
                         const contentName = btn.innerText;
 
-                        pubSub.publish("loadVersions", contentId );
+                        pubSub.publish("loadVersions", contentId);
 
                         pubSub.subscribe("confirmVersions", versions => {
                             parentElement.innerHTML = `
@@ -32,7 +32,7 @@ export function user(parentElement, data, pubSub) {
                             <div class="row justify-content-center">
                                 <div class="col-auto d-flex flex-column align-items-end">
                                     ${versions.map(v => `
-                                        <div class="d-flex align-items-center mb-2">
+                                        <div class="d-flex align-items-center mb-2 ${v.versionStatus == 0 ? "bg-secondary" : v.versionStatus == 1 ? "bg-success" : v.versionStatus == -1 ? "bg-danger" : "bg-primary"}">
                                             <button class="btn btn-outline-primary me-2" id="approverVersionContent_${v.version}">${v.version}</button>
                                             <span>visualizza</span>
                                         </div>
@@ -41,28 +41,31 @@ export function user(parentElement, data, pubSub) {
                             </div>
                         </div>
                     `;
-                    Array.from(parentElement.querySelectorAll("button"))
-                        .filter(btn => btn.id.startsWith("approverVersionContent_"))
-                        .forEach(verBtn => {
-                                verBtn.onclick = () => {
-                                    const selectedVersion = btn.id.split("_")[1];
-                                    pubSub.publish("loadVersionDetail", {
-                                        id: contentId,
-                                        version: selectedVersion
-                                    });
-                                    pubSub.subscribe("confirmVersion", ([data])  => {
-                                        parentElement.innerHTML = `
+                            Array.from(parentElement.querySelectorAll("button"))
+                                .filter(btn => btn.id.startsWith("approverVersionContent_"))
+                                .forEach(verBtn => {
+                                    verBtn.onclick = () => {
+                                        const selectedVersion = verBtn.id.split("_")[1];
+                                        pubSub.publish("loadVersionDetail", {
+                                            id: contentId,
+                                            version: selectedVersion
+                                        });
+                                        pubSub.subscribe("confirmVersion", ([data]) => {
+                                            console.log("diocan",data);
+                                            let html = `
                                         <h1>${data.title}</h1>
                                         <h5>${data.description}</h5>
                                         <p>${data.content}</p>
-                                        <h6>${data.author_email}</h6>
-                                        <button class="btn btn-outline-secondary me-2" id="reset_${data.version}_${data.id}">Reset</button>
-                                        <button class="btn btn-outline-success me-2" id="approve_${data.version}_${data.id}">Approve</button>
+                                        <h6>${data.author_email}</h6>`
+                                            if (data.versionStatus === 1)
+                                                html += ` <button class="btn btn-outline-secondary me-2" id="reset_${data.version}_${data.id}">Reset</button>
+                                        `
+                                            if (data.versionStatus === 0) html += `<button class="btn btn-outline-success me-2" id="approve_${data.version}_${data.id}">Approve</button>
                                         <button class="btn btn-outline-danger me-2" id="deny_${data.version}_${data.id}">Deny</button>`
-    
-                                    });
-                                };
-                            });
+                                            parentElement.innerHTML = html
+                                        });
+                                    };
+                                });
                         });
 
                     };
@@ -126,8 +129,8 @@ export function user(parentElement, data, pubSub) {
                 }
             });
 
-            pubSub.subscribe("sidebarApproverBtn", ()=>{
-                if(data.role === "approver") this.renderApprover();
+            pubSub.subscribe("sidebarApproverBtn", () => {
+                if (data.role === "approver") this.renderApprover();
             });
         }
     }
