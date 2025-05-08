@@ -1,106 +1,93 @@
 export function database() {
     const url = 'http://localhost:8050/src/service/api.php';
-    const databaseDict = {
-        register: async function (email, password, name, birth, classe, role){
-          let response = await fetch(url, {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                  "table": "users",
-                  "email": email,
-                  "password": password,
-                  "name": name,
-                  "class": classe,
-                  "birth_date": birth,
-                  "role": role
-              })
-          });
-          return await response.json();
-        },
-        login: async function (email, password){
-            let response = await fetch(url + `?${new URLSearchParams({ table: "users", email: email, password: password }).toString()}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-            });
-            return await response.json();
-          },
 
-        sidebar: async function () {
-            let response = await fetch(url + `?${new URLSearchParams({ table: "sidebar" }).toString()}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-            });
-            return await response.json();  
-        },
-
-        searchbar: async function (value) {
-            let response = await fetch(url + `?${new URLSearchParams({ table: "searchbar", value: value }).toString()}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-            });
-            return await response.json();
-        },
-        content6rand: async function(){
-            let response = await fetch(url + `?${new URLSearchParams({table: "homeDefault"}).toString()}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-            return await response.json();
-        },
-        updateAccount: async function (col, email, value){
-            let response = await fetch(url, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+    return {
+        register: async function (email, password, name, birth_date, userClass, role) {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    "table": "users",
-                    "column": col,
-                    "email": email,
-                    "value": value
+                    table: "users",
+                    email,
+                    password,
+                    name,
+                    birth_date,
+                    class: userClass,
+                    role
                 })
             });
             return await response.json();
         },
-        approverContent: async function(){
-            let response = await fetch(url + `?${new URLSearchParams({table: "approverContent"}).toString()}`, {
+
+        login: async function (email, password) {
+            const params = new URLSearchParams({ table: "users", email, password });
+            const response = await fetch(`${url}?${params.toString()}`, {
                 method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
+                headers: { "Content-Type": "application/json" },
             });
             return await response.json();
         },
-        getVersions: async function(contentID){
-            let response = await fetch(url + `?${new URLSearchParams({table: "versions", id: contentID}).toString()}`, {
+
+        sidebar: async function () {
+            const response = await fetch(`${url}?table=sidebar`, {
                 method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
+                headers: { "Content-Type": "application/json" },
             });
-            console.log(response)
             return await response.json();
         },
-        getVersion: async function(contentID, vers){
-            let response = await fetch(url + `?${new URLSearchParams({table: "content", id: contentID, version: vers}).toString()}`, {
+
+        searchbar: async function (value) {
+            const response = await fetch(`${url}?table=searchbar&value=${encodeURIComponent(value)}`, {
                 method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
+                headers: { "Content-Type": "application/json" },
             });
-            console.log(response)
             return await response.json();
         },
-    }
-    return databaseDict;
+
+        content6rand: async function () {
+            const response = await fetch(`${url}?table=homeDefault`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            });
+            return await response.json();
+        },
+
+        updateAccount: async function (column, email, value) {
+            const response = await fetch(url, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    table: "users",
+                    column,
+                    email,
+                    value
+                })
+            });
+            return await response.json();
+        },
+
+        approverContent: async function () {
+            const response = await fetch(`${url}?table=approverContent`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            });
+            return await response.json();
+        },
+
+        getVersions: async function (contentID) {
+            const response = await fetch(`${url}?table=versions&id=${contentID}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            });
+            return await response.json();
+        },
+
+        getVersion: async function (contentID, version) {
+            const response = await fetch(`${url}?table=content&id=${contentID}&version=${version}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            });
+            return await response.json();
+        },
+    };
 }

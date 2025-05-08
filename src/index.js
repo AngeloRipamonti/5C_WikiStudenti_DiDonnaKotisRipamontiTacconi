@@ -33,14 +33,20 @@ homeContent.homePage();
 pubsub.publish("sidebar", await db.sidebar());
 pubsub.subscribe("loginComplete", async (data)=>{
     let response = await db.login(data.email, data.password);
+    if(response.error) return;
     utente = user(document.getElementById("userPage"), response, pubsub);
     utente.renderAccount();
     accountSidebar.render();
     location.href="#user";
 })
 pubsub.subscribe("register", async (data)=>{
+    console.log(data)
     let r = await db.register(data.email, data.password, data.name, data.dateOfBirth, data.class, data.role);
+    console.log(r)
+    if(r.error) return;
     let response = await db.login(data.email, data.password);
+    console.log(response)
+    if(response.error) return;
     utente = user(document.getElementById("userPage"), response, pubsub);
     utente.renderAccount();
     accountSidebar.render();
