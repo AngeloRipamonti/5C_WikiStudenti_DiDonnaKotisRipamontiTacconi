@@ -8,6 +8,7 @@ import {pubSub} from "./components/pubsub.js";
 import { content } from "./components/content.js";
 import {sideBarComponent} from"./components/sideBar.js";
 import { user } from "./components/user.js"
+import { doc } from "./components/doc.js"
 
 // Variabili
 const pubsub = pubSub();
@@ -18,10 +19,12 @@ const search = searchBarComponent(document.querySelector("#search-bar"),pubsub);
 const credential =  generateLoginComponent(document.querySelector("#modalbody"), pubsub);
 const homeContent = content(document.getElementById("pages"), pubsub);
 const accountSidebar  = sideBarComponent("sidebarAccount", pubsub);
+const documentation = doc(document.getElementById("doc"), pubsub);
 let utente;
 
 // Build
 homeContent.build(await db.content6rand());
+documentation.build(/*Tutti i contenuti con l'ultima version dal db*/);
 
 // Render
 search.render();

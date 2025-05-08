@@ -83,6 +83,7 @@
                 </div>
             </div>
             <div id="login" class="d-none"></div>
+            <div id="doc" class="wiki-page d-none"></div>
         </div>
 
         <footer class="footer fixed-bottom">© Copyright <?php echo date("Y"); ?> Angelo Ripamonti, Alexandros Kotis, Lorenzo Di Donna e Simone Tacconi</footer>

@@ -8,7 +8,7 @@ const show = (element) => {
     element.classList.remove("d-none");
 }
 
-export const createNavigator = (parentElement) => {
+export const createNavigator = (parentElement, pubsub) => {
 
     const render = () => {
         const pages = Array.from(document.querySelectorAll(".wiki-page"));
