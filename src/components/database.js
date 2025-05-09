@@ -29,7 +29,8 @@ export function database() {
         },
 
         sidebar: async function () {
-            const response = await fetch(`${url}?table=sidebar`, {
+            const params = new URLSearchParams({ table: "sidebar"});
+            const response = await fetch(`${url}?${params.toString()}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             });
@@ -37,7 +38,8 @@ export function database() {
         },
 
         searchbar: async function (value) {
-            const response = await fetch(`${url}?table=searchbar&value=${encodeURIComponent(value)}`, {
+            const params = new URLSearchParams({ table: "searchbar", value: value});
+            const response = await fetch(`${url}?${params.toString()}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             });
@@ -45,7 +47,8 @@ export function database() {
         },
 
         content6rand: async function () {
-            const response = await fetch(`${url}?table=homeDefault`, {
+            const params = new URLSearchParams({ table: "homeDefault"});
+            const response = await fetch(`${url}?${params.toString()}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             });
@@ -67,7 +70,8 @@ export function database() {
         },
 
         approverContent: async function () {
-            const response = await fetch(`${url}?table=approverContent`, {
+            const params = new URLSearchParams({ table: "approverContent"});
+            const response = await fetch(`${url}?${params.toString()}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             });
@@ -75,7 +79,8 @@ export function database() {
         },
 
         getVersions: async function (contentID) {
-            const response = await fetch(`${url}?table=versions&id=${contentID}`, {
+            const params = new URLSearchParams({ table: "versions", id: contentID});
+            const response = await fetch(`${url}?${params.toString()}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             });
@@ -83,7 +88,8 @@ export function database() {
         },
 
         getVersion: async function (contentID, version) {
-            const response = await fetch(`${url}?table=content&id=${contentID}&version=${version}`, {
+            const params = new URLSearchParams({ table: "content", id: contentID, version: version});
+            const response = await fetch(`${url}?${params.toString()}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             });

@@ -20,6 +20,7 @@ export function content(parentElement, pubSub){
     }
     return {
         build: function (values){
+            console.log(values)
             data = values;
             //pubSub.subscribe("content", (value) => data = value)
         },
