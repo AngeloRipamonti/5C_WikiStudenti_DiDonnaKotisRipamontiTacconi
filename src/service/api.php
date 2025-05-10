@@ -131,6 +131,15 @@
                         respond($data);
                         break;
 
+                    case "confirms": 
+                        $result = $conn->query("SELECT * FROM roles_users where confirmed = 0;");
+                        $data = [];
+                        while ($row = $result->fetch_assoc()) {
+                            $data[] = $row;
+                        }
+                        respond($data);
+                        break;
+
                     default:
                         respond(["message" => "Tabella non valida"]);
                 }
@@ -198,16 +207,27 @@
                         }
                         break;
 
+                        
+
+                    case "confirm":
+                        $sql = "UPDATE roles_users SET confirmed = 1 WHERE email = ? AND confirmed = 0;";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("s", $input["email"]);
+                        $stmt->execute();
+
+                        respond(["message" => $stmt->affected_rows > 0 ? "Utente aggiornato" : "Utente non trovato"]);
+                        break;
+
                     default:
                         respond(["message" => "Tabella non valida"]);
                 }
                 break;
 
             case 'DELETE':
-                switch ($input["table"]) {
-                    case "users":
+                switch ($_GET["table"]) {
+                    case "deleteUsers":
                         $stmt = $conn->prepare("DELETE FROM users WHERE email = ?");
-                        $stmt->bind_param("s", $input["email"]);
+                        $stmt->bind_param("s", $_GET["email"]);
                         $stmt->execute();
                         respond(["message" => $stmt->affected_rows > 0 ? "Utente eliminato" : "Utente non trovato"]);
                         break;

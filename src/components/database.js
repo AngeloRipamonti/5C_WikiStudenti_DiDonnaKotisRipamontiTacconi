@@ -28,6 +28,16 @@ export function database() {
             return await response.json();
         },
 
+        deleteUsers: async function (email  ) {
+            const params = new URLSearchParams({ table: "deleteUsers", email });
+            console.log("params: "+params);
+            const response = await fetch(`${url}?${params.toString()}`, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+            });
+            return await response.json();
+        },
+
         sidebar: async function () {
             const params = new URLSearchParams({ table: "sidebar"});
             const response = await fetch(`${url}?${params.toString()}`, {
@@ -95,5 +105,28 @@ export function database() {
             });
             return await response.json();
         },
+
+        confirms: async function () {
+            const params = new URLSearchParams({ table: "confirms"});
+            console.log("params confirm: " + params);
+            const response = await fetch(`${url}?${params.toString()}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            });
+            return await response.json();
+        },
+
+        updateConfirms: async function (email) {
+            
+            const response = await fetch(url, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    table: "confirm",
+                    email,
+                })
+            });
+            return await response.json();
+        }
     };
 }

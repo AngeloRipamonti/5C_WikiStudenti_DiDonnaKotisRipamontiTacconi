@@ -72,10 +72,22 @@ pubsub.subscribe("approverContent", async () => {
     let response = await db.getVersions(id);
     pubsub.publish("confirmVersions",response);
  });
+ pubsub.subscribe("adminContent", async () => {
+    let response = await db.confirms();
+    pubsub.publish("confirmAdminContent",response);
+ });
  pubsub.subscribe("loadVersionDetail", async (data) => {
     let response = await db.getVersion(data.id, data.version);
     pubsub.publish("confirmVersion",response);
  });
-
+ pubsub.subscribe("confirmUsers", async (data) => {
+    let response = await db.updateConfirms( data.email);
+    //pubsub.publish("updateConfirmUsers");
+ });
+ pubsub.subscribe("deleteUsers", async (data) => {
+    let response = await db.deleteUsers( data.email);
+    console.log(response);
+    //pubsub.publish("updateConfirmUsers");
+ });
 
  

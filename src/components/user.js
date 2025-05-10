@@ -1,6 +1,8 @@
 export function user(parentElement, data, pubSub) {
 
     return {
+
+
         renderApprover: function () {
             pubSub.publish("approverContent");
             pubSub.subscribe("confirmApproverContent", async (data) => {
@@ -74,6 +76,44 @@ export function user(parentElement, data, pubSub) {
             });
         },
 
+        renderAdmin: function () {
+            const self = this;
+            pubSub.publish("adminContent");
+            pubSub.subscribe("confirmAdminContent", async (values) => {
+                let string = "";
+                values.forEach((value) => {
+                    string += `
+                        <div>
+                            <h6>${value.email}</h6>
+                            <button class="btn btn-primary confirm-btn" data-email="${value.email}">Conferma</button>
+                            <button class="btn btn-danger reject-btn" data-email="${value.email}">Rifiuta</button>
+                        </div>
+                    `;
+                });
+                parentElement.innerHTML = string;
+        
+                document.querySelectorAll(".confirm-btn").forEach(button => {
+                    button.onclick = function () {
+                        const email = this.dataset.email;
+                        console.log("Confermata:", email);
+                        pubSub.publish("confirmUsers", {email});
+                        self.renderAdmin();
+                    };
+                });
+        
+                document.querySelectorAll(".reject-btn").forEach(button => {
+                    button.onclick = function () {
+                        const email = this.dataset.email;
+                        console.log("Rifiutata:", email);
+                        pubSub.publish("deleteUsers", {email});
+                        self.renderAdmin();
+                    };
+                });
+            });
+        },
+        
+        
+
         renderAccount: function () {
             parentElement.innerHTML = `Dati:
                 <ul class="list-unstyled small" id="accountData">
@@ -129,9 +169,16 @@ export function user(parentElement, data, pubSub) {
                 }
             });
 
+
             pubSub.subscribe("sidebarApproverBtn", () => {
                 if (data.role === "approver") this.renderApprover();
             });
+
+            pubSub.subscribe("sidebarAdminBtn", () => {
+                if (data.role === "admin") this.renderAdmin();
+            });
+
         }
+
     }
 }
