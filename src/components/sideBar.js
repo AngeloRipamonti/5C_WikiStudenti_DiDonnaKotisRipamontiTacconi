@@ -4,7 +4,7 @@ export function sideBarComponent(idParentElement, pubSub) {
     const variable = {
         0: `<aside class="doc__nav bg-light p-2 d-flex flex-column min-vh-100 col-1">
         <ul class="list-unstyled">
-          <li class="js-btn <button id="sidebarEditorBtn">Editor</button></li>
+          <li class="js-btn"><button id="sidebarEditorBtn">Editor</button></li>
           <li class="js-btn"><button id="sidebarApproverBtn">Approver</button></li>
         </ul>
       </aside>`,
@@ -20,6 +20,7 @@ export function sideBarComponent(idParentElement, pubSub) {
         if (variable[index]) {
             parentElement.innerHTML = variable[index];
             if(index===0){
+                document.getElementById("sidebarEditorBtn").onclick = () => pubSub.publish("sidebarEditorBtn");
                 document.getElementById("sidebarApproverBtn").onclick = () => pubSub.publish("sidebarApproverBtn");
             }
         } else {
