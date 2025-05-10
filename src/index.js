@@ -76,6 +76,10 @@ pubsub.subscribe("approverContent", async () => {
     let response = await db.getVersion(data.id, data.version);
     pubsub.publish("confirmVersion",response);
  });
+ pubsub.subscribe("updateVersionStatus", async ({ id, version, newStatus }) => {
+    await db.updateVersionStatus(id, version, newStatus);
+});
+
 
 
  
