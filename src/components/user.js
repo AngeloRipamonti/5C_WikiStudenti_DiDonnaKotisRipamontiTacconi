@@ -133,7 +133,15 @@ export function user(parentElement, data, pubSub) {
             });
         },
         renderEditor: function (element) {
-            element.innerHTML = `<div id="editorQuill" style = "border: 1px solid black;"></div>
+            element.innerHTML = `<div>Come funziona? <br> 
+            <ul>
+                <li>Prima riga: Titolo</li>
+                <li>Seconda riga: Descrizione</li>
+                <li>Le righe successive: Contenuto</li>
+                <li>Finito di scrivere premere il bottone "Save"</li>
+            </ul>
+            </div>
+            </div><div id="editorQuill"></div>
             <div><button id="saveDoc" class="btn btn-success">Save</button></div>`;
             const quill = new Quill("#editorQuill", {
                 modules: {
@@ -149,6 +157,7 @@ export function user(parentElement, data, pubSub) {
                     content: quill.getText().split("\n").slice(2).join("\n"),
                     author_email: data.email
                 });
+                quill.root.innerHTML = "";
             }
         },
             

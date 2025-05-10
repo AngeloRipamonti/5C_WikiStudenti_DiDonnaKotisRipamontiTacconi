@@ -93,6 +93,7 @@ pubsub.subscribe("saveDoc", async (data) => {
     const {title, description, content, author_email} = data;
     let response = await db.createContent(title, description, content, author_email);
     console.log(response);
+    location.href="#home";
 });
 
  pubsub.subscribe("updateVersionStatus", async ({ id, version, newStatus }) => {

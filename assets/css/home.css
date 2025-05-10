@@ -1,3 +1,12 @@
+#editorQuill {
+    min-height: 60vh !important;
+    border: 1px solid black;
+}
+
+body {
+    min-height: 75vh;
+}
+
 .search-bar {
     display: flex;
     margin-bottom: 20px;
