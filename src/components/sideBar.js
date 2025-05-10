@@ -6,6 +6,7 @@ export function sideBarComponent(idParentElement, pubSub) {
         <ul class="list-unstyled">
           <li class="js-btn"><button id="sidebarEditorBtn">Editor</button></li>
           <li class="js-btn"><button id="sidebarApproverBtn">Approver</button></li>
+          <li class="js-btn"><button id="sidebarAdminBtn">Admin</button></li>
         </ul>
       </aside>`,
 
@@ -22,6 +23,7 @@ export function sideBarComponent(idParentElement, pubSub) {
             if(index===0){
                 document.getElementById("sidebarEditorBtn").onclick = () => pubSub.publish("sidebarEditorBtn");
                 document.getElementById("sidebarApproverBtn").onclick = () => pubSub.publish("sidebarApproverBtn");
+                document.getElementById("sidebarAdminBtn").onclick = () => pubSub.publish("sidebarAdminBtn");
             }
         } else {
             console.error("Template sidebar non trovato per indice:", index);
