@@ -51,7 +51,7 @@ export function user(parentElement, data, pubSub) {
                                             version: selectedVersion
                                         });
                                         pubSub.subscribe("confirmVersion", ([data]) => {
-                                            console.log("diocan",data);
+                                            console.log("diocan", data);
                                             let html = `
                                         <h1>${data.title}</h1>
                                         <h5>${data.description}</h5>
@@ -73,7 +73,27 @@ export function user(parentElement, data, pubSub) {
 
             });
         },
+        renderEditor: function (element) {
+            element.innerHTML = `<div id="editorQuill" style = "border: 1px solid black;"></div>
+            <div><button id="saveDoc" class="btn btn-success">Save</button></div>`;
+            const quill = new Quill("#editorQuill", {
+                modules: {
+                    toolbar: false
+                },
+                placeholder: "Title\nDescription\nContent",
+                theme: "bubble"
+            });
+            document.getElementById("saveDoc").onclick = () => {
+                pubSub.publish("saveDoc", {
+                    title: quill.getText().split("\n")[0],
+                    description: quill.getText().split("\n")[1],
+                    content: quill.getText().split("\n").slice(2).join("\n"),
+                    author_email: data.email
+                });
+            }
+            
 
+        },
         renderAccount: function () {
             parentElement.innerHTML = `Dati:
                 <ul class="list-unstyled small" id="accountData">
@@ -131,6 +151,16 @@ export function user(parentElement, data, pubSub) {
 
             pubSub.subscribe("sidebarApproverBtn", () => {
                 if (data.role === "approver") this.renderApprover();
+            });
+            pubSub.subscribe("sidebarEditorBtn", () => {
+                if (data.role === "editor") {
+                    document.getElementById("editorButtonAdd").classList.remove("d-none");
+                    document.getElementById("editorButtonAdd").onclick = () => {
+                        this.renderEditor(document.getElementById("editor"));
+                        location.href = "#editor";
+                    }
+                    location.href = "#home";
+                }
             });
         }
     }

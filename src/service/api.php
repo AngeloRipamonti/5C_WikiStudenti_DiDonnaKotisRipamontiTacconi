@@ -155,8 +155,23 @@
                         respond(["message" => "Utente registrato con successo"]);
                         break;
 
+                    case "content":
+                        if (!empty($input["content"]) &&!empty($input["title"]) &&!empty($input["description"]) &&!empty($input["author_email"])) {
+                            $stmt = $conn->prepare("INSERT INTO contents (title, author_email, description) VALUES (?,?,?)");
+                            $stmt->bind_param("sss", $input["title"], $input["author_email"], $input["description"]);
+                            $stmt->execute();
+                            $content_id = $stmt->insert_id; 
+                            $version = 0;
+                            $stmt = $conn->prepare("INSERT INTO versions (content_id, version, content, author_email) VALUES (?,?,?,?)");
+                            $stmt->bind_param("iiss", $content_id, $version, $input["content"], $input["author_email"]);
+                            $stmt->execute();
+                            respond(["message" => "Contenuto creato con successo"]);
+                        } else {
+                            respond(["message" => "Campi mancanti: content, title, description, author"]);
+                        }
+                        break;
                     default:
-                        respond(["message" => "Tabella non valida"]);
+                        respond(["error" => "Tabella non valida"]);
                 }
                 break;
 

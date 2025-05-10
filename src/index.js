@@ -76,6 +76,8 @@ pubsub.subscribe("approverContent", async () => {
     let response = await db.getVersion(data.id, data.version);
     pubsub.publish("confirmVersion",response);
  });
-
-
- 
+pubsub.subscribe("saveDoc", async (data) => {
+    const {title, description, content, author_email} = data;
+    let response = await db.createContent(title, description, content, author_email);
+    console.log(response);
+});

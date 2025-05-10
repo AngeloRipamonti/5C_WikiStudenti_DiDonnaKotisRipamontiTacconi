@@ -12,6 +12,7 @@
       <link rel="stylesheet" href="/assets/css/scribbler-landing.css">
       <link rel="stylesheet" href="/assets/css/home.css">
       <link rel="author" href="author.txt">
+      <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.bubble.css" rel="stylesheet" />
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js" integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+" crossorigin="anonymous"></script>
@@ -75,6 +76,9 @@
                     <p>Read our documentation for advanced keybindings and customization</p>
                     <a href="index.html" class="button--primary">Documentation</a>
                 </div>
+                <div id="editorButtonAdd" class="position-fixed d-none bottom-0 end-0 mb-5 me-3">
+                    <button type="button" class="btn btn-primary" id="btnAddPage"><i class="fa fa-plus"></i></button>
+                </div>
             </div>
             <div id="user" class="wiki-page container-fluid d-none">
                 <div class ="row">
@@ -84,9 +88,11 @@
             </div>
             <div id="login" class="d-none"></div>
             <div id="doc" class="wiki-page d-none"></div>
+            <div id="editor" class="wiki-page d-none"></div>
         </div>
 
-        <footer class="footer fixed-bottom">© Copyright <?php echo date("Y"); ?> Angelo Ripamonti, Alexandros Kotis, Lorenzo Di Donna e Simone Tacconi</footer>
+        <footer class="footer position-relative fixed-bottom">© Copyright <?php echo date("Y"); ?> Angelo Ripamonti, Alexandros Kotis, Lorenzo Di Donna e Simone Tacconi</footer>
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
         <script type="module" src="./index.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
         <script>
