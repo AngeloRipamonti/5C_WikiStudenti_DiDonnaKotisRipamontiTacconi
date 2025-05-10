@@ -5,20 +5,21 @@ export function user(parentElement, data, pubSub) {
 
         renderApprover: function () {
             pubSub.publish("approverContent");
+
             pubSub.subscribe("confirmApproverContent", async (data) => {
                 parentElement.innerHTML = `
-                <div class="container text-center my-4">
-                    <h2 class="mb-4">contenuti da approvare</h2>
-                    <div class="row justify-content-start">
-                        <div class="col-2 d-flex flex-column align-items-start">
-                        ${data.map(e => {
-                    return `<button class="contentButton btn btn-outline-primary mb-2" id="approverContent_${e.id}">${e.title}</button>`;
-                }).join("")}
-                        </div>
+            <div class="container text-center my-4">
+                <h2 class="mb-4">contenuti da approvare</h2>
+                <div class="row justify-content-start">
+                    <div class="col-2 d-flex flex-column align-items-start">
+                        ${data.map(e => `
+                            <button class="contentButton btn btn-outline-primary mb-2" id="approverContent_${e.id}">${e.title}</button>
+                        `).join("")}
                     </div>
                 </div>
-            `;
-                //Visualizzazione versioni
+            </div>
+        `;
+
                 const buttons = Array.from(document.querySelectorAll("button")).filter(btn => btn.id.startsWith("approverContent_"));
                 buttons.forEach(btn => {
                     btn.onclick = () => {
@@ -43,6 +44,7 @@ export function user(parentElement, data, pubSub) {
                             </div>
                         </div>
                     `;
+
                             Array.from(parentElement.querySelectorAll("button"))
                                 .filter(btn => btn.id.startsWith("approverVersionContent_"))
                                 .forEach(verBtn => {
@@ -52,30 +54,104 @@ export function user(parentElement, data, pubSub) {
                                             id: contentId,
                                             version: selectedVersion
                                         });
+
                                         pubSub.subscribe("confirmVersion", ([data]) => {
-                                            console.log("diocan",data);
                                             let html = `
-                                        <h1>${data.title}</h1>
-                                        <h5>${data.description}</h5>
-                                        <p>${data.content}</p>
-                                        <h6>${data.author_email}</h6>`
-                                            if (data.versionStatus === 1)
-                                                html += ` <button class="btn btn-outline-secondary me-2" id="reset_${data.version}_${data.id}">Reset</button>
-                                        `
-                                            if (data.versionStatus === 0) html += `<button class="btn btn-outline-success me-2" id="approve_${data.version}_${data.id}">Approve</button>
-                                        <button class="btn btn-outline-danger me-2" id="deny_${data.version}_${data.id}">Deny</button>`
-                                            parentElement.innerHTML = html
+                                        <div class="container my-4">
+                                            <h1>${data.title}</h1>
+                                            <h5>${data.description}</h5>
+                                            <p>${data.content}</p>
+                                            <h6>${data.author_email}</h6>
+                                            <div class="mt-4">`;
+
+                                            if (data.versionStatus === 1) {
+                                                html += `<button class="btn btn-outline-secondary me-2" id="reset_${data.version}_${data.id}">Reset</button>`;
+                                            } else if (data.versionStatus === 0) {
+                                                html += `
+                                            <button class="btn btn-outline-success me-2" id="approve_${data.version}_${data.id}">Approve</button>
+                                            <button class="btn btn-outline-danger me-2" id="deny_${data.version}_${data.id}">Deny</button>
+                                        `;
+                                            } else if (data.versionStatus === -1) {
+                                                html += `<div class="text-danger fw-bold">Versione negata - sola visualizzazione</div>`;
+                                            }
+
+                                            html += `</div></div>`;
+                                            parentElement.innerHTML = html;
+
+                                            // Event binding
+                                            const approveBtn = document.getElementById(`approve_${data.version}_${data.id}`);
+                                            const denyBtn = document.getElementById(`deny_${data.version}_${data.id}`);
+                                            const resetBtn = document.getElementById(`reset_${data.version}_${data.id}`);
+
+                                            if (approveBtn) {
+                                                approveBtn.onclick = () => {
+                                                    pubSub.publish("updateVersionStatus", {
+                                                        id: data.id,
+                                                        version: data.version,
+                                                        newStatus: 1
+                                                    });
+                                                    pubSub.publish("loadVersionDetail", {
+                                                        id: data.id,
+                                                        version: data.version
+                                                    });
+                                                };
+                                            }
+
+                                            if (denyBtn) {
+                                                denyBtn.onclick = () => {
+                                                    pubSub.publish("updateVersionStatus", {
+                                                        id: data.id,
+                                                        version: data.version,
+                                                        newStatus: -1
+                                                    });
+                                                    pubSub.publish("loadVersionDetail", {
+                                                        id: data.id,
+                                                        version: data.version
+                                                    });
+                                                };
+                                            }
+
+                                            if (resetBtn) {
+                                                resetBtn.onclick = () => {
+                                                    pubSub.publish("updateVersionStatus", {
+                                                        id: data.id,
+                                                        version: data.version,
+                                                        newStatus: 0
+                                                    });
+                                                    pubSub.publish("loadVersionDetail", {
+                                                        id: data.id,
+                                                        version: data.version
+                                                    });
+                                                };
+                                            }
                                         });
                                     };
                                 });
                         });
-
                     };
                 });
-
             });
         },
-
+        renderEditor: function (element) {
+            element.innerHTML = `<div id="editorQuill" style = "border: 1px solid black;"></div>
+            <div><button id="saveDoc" class="btn btn-success">Save</button></div>`;
+            const quill = new Quill("#editorQuill", {
+                modules: {
+                    toolbar: false
+                },
+                placeholder: "Title\nDescription\nContent",
+                theme: "bubble"
+            });
+            document.getElementById("saveDoc").onclick = () => {
+                pubSub.publish("saveDoc", {
+                    title: quill.getText().split("\n")[0],
+                    description: quill.getText().split("\n")[1],
+                    content: quill.getText().split("\n").slice(2).join("\n"),
+                    author_email: data.email
+                });
+            }
+        },
+            
         renderAdmin: function () {
             const self = this;
             pubSub.publish("adminContent");
@@ -113,7 +189,6 @@ export function user(parentElement, data, pubSub) {
         },
         
         
-
         renderAccount: function () {
             parentElement.innerHTML = `Dati:
                 <ul class="list-unstyled small" id="accountData">
@@ -174,8 +249,20 @@ export function user(parentElement, data, pubSub) {
                 if (data.role === "approver") this.renderApprover();
             });
 
+
             pubSub.subscribe("sidebarAdminBtn", () => {
                 if (data.role === "admin") this.renderAdmin();
+            });
+
+            pubSub.subscribe("sidebarEditorBtn", () => {
+                if (data.role === "editor") {
+                    document.getElementById("editorButtonAdd").classList.remove("d-none");
+                    document.getElementById("editorButtonAdd").onclick = () => {
+                        this.renderEditor(document.getElementById("editor"));
+                        location.href = "#editor";
+                    }
+                    location.href = "#home";
+                }
             });
 
         }

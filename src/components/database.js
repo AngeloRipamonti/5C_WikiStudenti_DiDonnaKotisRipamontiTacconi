@@ -2,6 +2,20 @@ export function database() {
     const url = 'http://localhost:8050/src/service/api.php';
 
     return {
+        createContent: async function (title, description, content, author_email) {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    table: "content",
+                    title,
+                    description,
+                    content,
+                    author_email
+                })
+            });
+            return await response.json();
+        },
         register: async function (email, password, name, birth_date, userClass, role) {
             const response = await fetch(url, {
                 method: "POST",

@@ -89,5 +89,13 @@ pubsub.subscribe("approverContent", async () => {
     console.log(response);
     //pubsub.publish("updateConfirmUsers");
  });
+pubsub.subscribe("saveDoc", async (data) => {
+    const {title, description, content, author_email} = data;
+    let response = await db.createContent(title, description, content, author_email);
+    console.log(response);
+});
 
- 
+ pubsub.subscribe("updateVersionStatus", async ({ id, version, newStatus }) => {
+    await db.updateVersionStatus(id, version, newStatus);
+});
+
