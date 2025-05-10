@@ -19,12 +19,12 @@ const search = searchBarComponent(document.querySelector("#search-bar"),pubsub);
 const credential =  generateLoginComponent(document.querySelector("#modalbody"), pubsub);
 const homeContent = content(document.getElementById("pages"), pubsub);
 const accountSidebar  = sideBarComponent("sidebarAccount", pubsub);
-const documentation = doc(document.getElementById("doc"), pubsub);
+const documentation = doc(document.getElementById("docs"), pubsub);
 let utente;
 
 // Build
 homeContent.build(await db.content6rand());
-documentation.build(/*Tutti i contenuti con l'ultima version dal db*/);
+documentation.build(await db.getDocs());
 
 // Render
 search.render();

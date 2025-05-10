@@ -141,6 +141,15 @@ export function database() {
                 })
             });
             return await response.json();
-        }
+        },
+
+        getDocs: async function () {
+            const params = new URLSearchParams({ table: "docs"});
+            const response = await fetch(`${url}?${params.toString()}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            });
+            return await response.json();
+        },
     };
 }

@@ -2,6 +2,9 @@
     min-height: 60vh !important;
     border: 1px solid black;
 }
+.hVh{
+    min-height: 90vh !important;
+}
 
 body {
     min-height: 75vh;

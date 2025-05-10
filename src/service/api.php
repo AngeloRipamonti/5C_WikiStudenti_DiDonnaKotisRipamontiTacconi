@@ -140,6 +140,14 @@
                         respond($data);
                         break;
 
+                    case "docs":
+                        $result = $conn->query("SELECT DISTINCT c.*, v.version, v.status AS vStatus, v.content, v.created_at AS vCreatedAt, v.approver_email AS vApproverEmail, v.author_email AS vAuthorEmail  FROM contents c JOIN ( SELECT v1.* FROM versions v1 JOIN ( SELECT content_id, MAX(version) AS max_version FROM versions WHERE status = 1 GROUP BY content_id ) latest ON v1.content_id = latest.content_id AND v1.version = latest.max_version WHERE v1.status = 1) v ON c.id = v.content_id WHERE c.status = 1;");
+                        $data = [];
+                        while ($row = $result->fetch_assoc()) {
+                            $data[] = $row;
+                        }
+                        respond($data);
+                        break;
                     default:
                         respond(["message" => "Tabella non valida"]);
                 }

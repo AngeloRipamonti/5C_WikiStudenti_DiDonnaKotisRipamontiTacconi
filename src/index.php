@@ -87,7 +87,7 @@
                 </div>
             </div>
             <div id="login" class="d-none"></div>
-            <div id="doc" class="wiki-page d-none"></div>
+            <div id="docs" class="wiki-page d-none"></div>
             <div id="editor" class="wiki-page d-none"></div>
         </div>
 
