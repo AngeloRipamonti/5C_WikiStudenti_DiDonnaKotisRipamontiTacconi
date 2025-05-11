@@ -64,14 +64,14 @@ export function user(parentElement, data, pubSub) {
                                             <h6>${data.author_email}</h6>
                                             <div class="mt-4">`;
 
-                                            if (data.versionStatus === 1) {
+                                            if (Number(data.versionStatus) === 1) {
                                                 html += `<button class="btn btn-outline-secondary me-2" id="reset_${data.version}_${data.id}">Reset</button>`;
-                                            } else if (data.versionStatus === 0) {
+                                            } else if (Number(data.versionStatus) === 0) {
                                                 html += `
                                             <button class="btn btn-outline-success me-2" id="approve_${data.version}_${data.id}">Approve</button>
                                             <button class="btn btn-outline-danger me-2" id="deny_${data.version}_${data.id}">Deny</button>
                                         `;
-                                            } else if (data.versionStatus === -1) {
+                                            } else if (Number(data.versionStatus) === -1) {
                                                 html += `<div class="text-danger fw-bold">Versione negata - sola visualizzazione</div>`;
                                             }
 
