@@ -87,9 +87,11 @@
                 </div>
             </div>
             <div id="login" class="d-none"></div>
-            <div id="docs" class="wiki-page d-none">
-              <aside id = "sidebarContent"></aside>
-              <div id = "docsPage"></div>
+            <div id="docs" class="wiki-page container-fluid d-none">
+              <div class ="row">
+                <aside class="col-md-3 bg-light p-3" id = "sidebarContent"></aside>
+                <div class="col-md-9 p-3" id = "docsPage"></div>
+              </div>
             </div>
             <div id="editor" class="wiki-page d-none"></div>
         </div>

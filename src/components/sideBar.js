@@ -4,9 +4,9 @@ export function sideBarComponent(idParentElement, pubSub) {
     const variable = {
         0: `<aside class="doc__nav bg-light p-2 d-flex flex-column min-vh-100 col-1">
         <ul class="list-unstyled">
-          <li class="js-btn"><button id="sidebarEditorBtn">Editor</button></li>
-          <li class="js-btn"><button id="sidebarApproverBtn">Approver</button></li>
-          <li class="js-btn"><button id="sidebarAdminBtn">Admin</button></li>
+          <li class="js-btn"><button class="btn btn-light text-start w-100 mb-1 shadow-none border-0" id="sidebarEditorBtn">Editor</button></li>
+          <li class="js-btn"><button class="btn btn-light text-start w-100 mb-1 shadow-none border-0" id="sidebarApproverBtn">Approver</button></li>
+          <li class="js-btn"><button class="btn btn-light text-start w-100 mb-1 shadow-none border-0" id="sidebarAdminBtn">Admin</button></li>
         </ul>
       </aside>`,
 
@@ -40,7 +40,7 @@ export function sideBarComponent(idParentElement, pubSub) {
                     ${data.map(el => `
                         <li class="nav-item">
                             <a 
-                              class="nav-link" 
+                              class="nav-link btn btn-light text-start w-100 mb-1 shadow-none border-0" 
                               href="#docs" 
                               data-id="${el.id}" 
                             >
