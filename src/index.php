@@ -87,7 +87,10 @@
                 </div>
             </div>
             <div id="login" class="d-none"></div>
-            <div id="docs" class="wiki-page d-none"></div>
+            <div id="docs" class="wiki-page d-none">
+              <aside id = "sidebarContent"></aside>
+              <div id = "docsPage"></div>
+            </div>
             <div id="editor" class="wiki-page d-none"></div>
         </div>
 

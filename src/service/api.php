@@ -54,6 +54,22 @@
                             respond(["error" => "Parametri mancanti"]);
                         }
                         break;
+                    
+                    case "specificContent":
+                        if (!empty($_GET["version"]) && !empty($_GET["id"])) {
+                            $stmt = $conn->prepare("SELECT c.id,c.status AS content_status,c.title,c.description,c.created_at,c.approver_email,c.author_email,v.version,v.status AS version_status,v.content AS version_content FROM contents c JOIN versions v ON v.content_id = c.id WHERE c.id = ? AND v.version = (SELECT MAX(v2.version) FROM versions v2 WHERE v2.content_id = c.id;");
+                            $stmt->bind_param("i", $_GET["id"]);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                        }
+
+                        $data = [];
+                        while ($row = $result->fetch_assoc()) {
+                            $data[] = $row;
+                        }
+                        respond($data);
+                        
+                        break;
 
                     case "content":
                         if (!empty($_GET["version"]) && !empty($_GET["id"])) {

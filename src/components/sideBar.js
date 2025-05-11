@@ -24,20 +24,6 @@ export function sideBarComponent(idParentElement, pubSub) {
                 document.getElementById("sidebarEditorBtn").onclick = () => pubSub.publish("sidebarEditorBtn");
                 document.getElementById("sidebarApproverBtn").onclick = () => pubSub.publish("sidebarApproverBtn");
                 document.getElementById("sidebarAdminBtn").onclick = () => pubSub.publish("sidebarAdminBtn");
-            } else if (index === 1) {
-                pubSub.subscribe("sidebar", (data) => {
-                    console.log(data);
-                    if (Array.isArray(data)) {
-                        variable[1] = `<ul class="nav flex-column list-unstyled">${data.map(element => {
-                            return `<li class="nav-item"><a class="nav-link" href="#${element.id}">${element.title}</a></li>`;
-                        }).join('')}</ul>`;
-                        render();
-                    } else {
-                        console.error("Dati non validi ricevuti per sidebar:", data);
-                    }
-                });
-
-
             }
         } else {
             console.error("Template sidebar non trovato per indice:", index);
@@ -48,15 +34,34 @@ export function sideBarComponent(idParentElement, pubSub) {
     pubSub.subscribe("sidebar", (data) => {
         console.log(data);
         if (Array.isArray(data)) {
-            variable[1] = `<ul class="nav flex-column list-unstyled">${data.map(element => {
-                return `<li class="nav-item"><a class="nav-link" href="#${element.id}">${element.title}</a></li>`;
-            }).join('')}</ul>`;
+            // Genero la lista con data-id e onclick inline
+            variable[1] = `
+                <ul class="nav flex-column list-unstyled">
+                    ${data.map(el => `
+                        <li class="nav-item">
+                            <a 
+                              class="nav-link" 
+                              href="#docs" 
+                              data-id="${el.id}" 
+                            >
+                              ${el.title}
+                            </a>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
             render();
+            data.map(el => {
+                const link = document.querySelector(`a[data-id="${el.id}"]`);
+                if (link) {
+                    link.onclick = () => pubSub.publish("sidebarClick", el.id);
+                }
+            });
         } else {
             console.error("Dati non validi ricevuti per sidebar:", data);
         }
     });
-
+    
     return {
         render: render,
     };

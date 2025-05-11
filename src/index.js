@@ -19,8 +19,8 @@ const search = searchBarComponent(document.querySelector("#search-bar"),pubsub);
 const credential =  generateLoginComponent(document.querySelector("#modalbody"), pubsub);
 const homeContent = content(document.getElementById("pages"), pubsub);
 const accountSidebar  = sideBarComponent("sidebarAccount", pubsub);
-const docSidebar  = sideBarComponent("docs", pubsub);
-const documentation = doc(document.getElementById("docs"), pubsub);
+const docSidebar  = sideBarComponent("sidebarContent", pubsub);
+const documentation = doc(document.getElementById("docsPage"), pubsub);
 let utente;
 
 // Build
