@@ -246,7 +246,26 @@
                         }
                         break;
 
-                        
+                        case "updateVersionStatus":
+                        $id = $input["id"];
+                        $version = $input["version"];
+                        $newStatus = $input["newStatus"];
+
+                        if (!empty($id) && !empty($version) && !empty($newStatus)) {
+                            //respond(["values"=>$id." ".$version." ".$newStatus]);
+                            $stmt = $conn->prepare("UPDATE versions SET status = ? WHERE content_id = ? AND version = ?");
+                            $stmt->bind_param("iii", $newStatus, $id, $version);
+
+                            if ($stmt->execute()) {
+                                respond(["success" => true, "message" => "Stato della versione aggiornato con successo."]);
+                            } else {
+                                respond(["error" => "Errore durante l'aggiornamento della versione."]);
+                            }
+                        } else {
+                            respond(["error" => "Parametri mancanti: id, version o newStatus."]);
+                        }
+                        break;
+
 
                     case "confirm":
                         $sql = "UPDATE roles_users SET confirmed = 1 WHERE email = ? AND confirmed = 0;";

@@ -97,8 +97,8 @@ pubsub.subscribe("saveDoc", async (data) => {
     location.href="#home";
 });
 
- pubsub.subscribe("updateVersionStatus", async ({ id, version, newStatus }) => {
+pubsub.subscribe("updateVersionStatus", async ({ id, version, newStatus }) => {
        let response = await db.updateVersionStatus(id, version, newStatus);
-       pubSub.publish("",response);
+       console.log(response);
 });
 

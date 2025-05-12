@@ -142,6 +142,18 @@ export function database() {
             });
             return await response.json();
         },
+updateVersionStatus: async function (id, version, newStatus) {
+            
+            const response = await fetch(url, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    table: "updateVersionStatus",
+                    id, version, newStatus
+                })
+            });
+            return await response.json();
+        },
 
         getDocs: async function () {
             const params = new URLSearchParams({ table: "docs"});
