@@ -247,23 +247,28 @@
                         break;
 
                         case "updateVersionStatus":
-                        $id = $input["id"];
-                        $version = $input["version"];
-                        $newStatus = $input["newStatus"];
+                            $id = isset($input["id"]) ? (int)$input["id"] : null;
+                            $version = isset($input["version"]) ? (int)$input["version"] : null;
+                            $newStatus = isset($input["newStatus"]) ? (int)$input["newStatus"] : null;
 
-                        if (!empty($id) && !empty($version) && !empty($newStatus)) {
-                            //respond(["values"=>$id." ".$version." ".$newStatus]);
-                            $stmt = $conn->prepare("UPDATE versions SET status = ? WHERE content_id = ? AND version = ?");
-                            $stmt->bind_param("iii", $newStatus, $id, $version);
+                            if (!is_null($id) && !is_null($version) && !is_null($newStatus)) {
+                                $stmt = $conn->prepare("UPDATE versions SET status = ? WHERE content_id = ? AND version = ?");
+                                
+                                if (!$stmt) {
+                                    respond(["error" => "Errore nella prepare: " . $conn->error]);
+                                }
 
-                            if ($stmt->execute()) {
-                                respond(["success" => true, "message" => "Stato della versione aggiornato con successo."]);
+                                $stmt->bind_param("iii", $newStatus, $id, $version);
+
+                                if ($stmt->execute()) {
+                                    respond(["success" => true, "message" => "Stato della versione aggiornato con successo."]);
+                                } else {
+                                    respond(["error" => "Errore durante l'aggiornamento della versione."]);
+                                }
                             } else {
-                                respond(["error" => "Errore durante l'aggiornamento della versione."]);
+                                respond(["error" => "Parametri mancanti: id, version o newStatus."]);
                             }
-                        } else {
-                            respond(["error" => "Parametri mancanti: id, version o newStatus."]);
-                        }
+
                         break;
 
 

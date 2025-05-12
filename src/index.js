@@ -98,7 +98,8 @@ pubsub.subscribe("saveDoc", async (data) => {
 });
 
 pubsub.subscribe("updateVersionStatus", async ({ id, version, newStatus }) => {
-       let response = await db.updateVersionStatus(id, version, newStatus);
+       let response = await db.updateVersionStatus(Number(id), Number(version), Number(newStatus));
+       console.log(id, version, newStatus);
        console.log(response);
 });
 

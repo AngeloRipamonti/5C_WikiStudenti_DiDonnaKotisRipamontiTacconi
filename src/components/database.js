@@ -142,7 +142,7 @@ export function database() {
             });
             return await response.json();
         },
-updateVersionStatus: async function (id, version, newStatus) {
+        updateVersionStatus: async function (id, version, newStatus) {
             
             const response = await fetch(url, {
                 method: "PUT",
