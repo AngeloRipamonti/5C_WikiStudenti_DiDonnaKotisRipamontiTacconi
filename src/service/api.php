@@ -35,7 +35,7 @@
                 switch ($_GET["table"]) {
                     case "users":
                         if (!empty($_GET["email"]) && !empty($_GET["password"])) {
-                            $stmt = $conn->prepare("SELECT DISTINCT * FROM users u JOIN roles_users ru ON u.email = ru.email WHERE u.email = ?"); //AND ru.confirmed = 1
+                            $stmt = $conn->prepare("SELECT DISTINCT * FROM users u JOIN roles_users ru ON u.email = ru.email WHERE u.email = ? AND ru.confirmed = 1");
                             $stmt->bind_param("s", $_GET["email"]);
                             $stmt->execute();
                             $result = $stmt->get_result();
@@ -89,7 +89,7 @@
                         break;
 
                     case "sidebar":
-                        $result = $conn->query("SELECT title, id FROM contents;");
+                        $result = $conn->query("SELECT title, id FROM contents WHERE status = 1;");
                         $data = [];
                         while ($row = $result->fetch_assoc()) {
                             $data[] = $row;
